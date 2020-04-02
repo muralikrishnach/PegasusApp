@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:padding="@dimen/_4dp"
+        card_view:cardCornerRadius="@dimen/_4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.9">
+
+                <TextView
+                    android:id="@+id/tvid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_4dp"
+                    android:paddingEnd="@dimen/_4dp"
+                    android:paddingTop="@dimen/_4dp"
+                    android:paddingBottom="@dimen/_4dp"
+                    android:text="22261319"
+                    android:textSize="@dimen/activity_textsize" />
+
+                <TextView
+                    android:id="@+id/tvsrcdest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Corollton"
+                    android:paddingStart="@dimen/_4dp"
+                    android:paddingEnd="@dimen/_4dp"
+                    android:paddingTop="@dimen/_4dp"
+                    android:paddingBottom="@dimen/_4dp"
+                    android:textSize="@dimen/activity_textsize"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:paddingStart="@dimen/_4dp"
+                    android:paddingEnd="@dimen/_4dp"
+                    android:paddingTop="@dimen/_4dp"
+                    android:paddingBottom="@dimen/_4dp"
+                    android:textSize="@dimen/activity_textsize"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/location"
+                android:layout_gravity="center"
+                >
+
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!--<androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:padding="@dimen/_4dp"
+        card_view:cardCornerRadius="@dimen/_4dp">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llwaybill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/way_bill" />
+
+                <TextView
+                    android:id="@+id/tvwaybill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/space" />
+
+            </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/llpickupadte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pick"
+                style="@style/TextAppearance.AppCompat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="@dimen/_8dp"
+                android:text="@string/pickup_date" />
+
+            <TextView
+                android:id="@+id/tvpickupdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:padding="@dimen/_8dp"
+                android:text="@string/space" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/lleta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/eta"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/eta" />
+
+                <TextView
+                    android:id="@+id/tveta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/space" />
+
+            </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/llactualdelivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/actualdelivery"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/actual_delivery_date" />
+
+                <TextView
+                    android:id="@+id/tvactualdelivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/space" />
+
+            </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/llcurrentstatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/currentstatus"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/current_status" />
+
+                <TextView
+                    android:id="@+id/tvcurrentstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="@dimen/_8dp"
+                    android:text="@string/space" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>-->
+
+</LinearLayout>
