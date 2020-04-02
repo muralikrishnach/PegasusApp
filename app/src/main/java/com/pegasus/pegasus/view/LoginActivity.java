@@ -47,9 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         context = LoginActivity.this;
         setContentView(R.layout.activity_login);
 
-        editText_loginid = (TextInputEditText)findViewById(R.id.etloginid);
-        editText_password = (TextInputEditText)findViewById(R.id.etpassword);
-        btnLogin = (Button)findViewById(R.id.btnlogin) ;
+        editText_loginid = findViewById(R.id.etloginid);
+        editText_password = findViewById(R.id.etpassword);
+        btnLogin = findViewById(R.id.btnlogin);
 
         viewModel = ViewModelProviders.of(LoginActivity.this).get(LoginViewModel.class);
         viewModel.setContext(LoginActivity.this);
@@ -91,6 +91,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+                                        Intent i = new Intent(LoginActivity.this,OpenShipmentActivity.class);
+                                        startActivity(i);
                                     }
                                 });
                                 alert.show();
