@@ -71,7 +71,6 @@ public class LoginViewModel extends ViewModel {
 
                     LoginDao login = null;
                     try {
-
                         JsonParsing parsing = new JsonParsing();
                         login = parsing.login(response.body().string());
                     } catch (Exception e) {
@@ -79,10 +78,6 @@ public class LoginViewModel extends ViewModel {
                     }
                     loginResponse.setValue(login);
 
-/*                                GsonBuilder gsonBuilder = new GsonBuilder();
-                                gson = gsonBuilder.create();
-
-                                LoginDao login = gson.froJson(response.body().string(),LoginDao.class);*/
                 }
 
                 @Override
