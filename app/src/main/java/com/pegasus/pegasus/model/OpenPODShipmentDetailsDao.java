@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShipmentDetailsDao implements Serializable {
+public class OpenPODShipmentDetailsDao implements Serializable {
 
     private int error_number = 0;
     private String error_description = "";
@@ -16,7 +16,7 @@ public class ShipmentDetailsDao implements Serializable {
 
     private List<PODShipmentsDao> podShipmentsDaoList = new ArrayList<>();
 
-    private List<ShipmentDetailsDao> shipmentDetailsDaoList = new ArrayList<>();
+    private List<OpenPODShipmentDetailsDao> openPODShipmentDetailsDaoList = new ArrayList<>();
 
 
 
@@ -78,11 +78,11 @@ public class ShipmentDetailsDao implements Serializable {
 
 
 
-    public List<ShipmentDetailsDao> getShipmentDetailsDaoList() {
-        return shipmentDetailsDaoList;
+    public List<OpenPODShipmentDetailsDao> getOpenPODShipmentDetailsDaoList() {
+        return openPODShipmentDetailsDaoList;
     }
 
-    public void setShipmentDetailsDaoList(List<ShipmentDetailsDao> shipmentDetailsDaoList) {
-        this.shipmentDetailsDaoList = shipmentDetailsDaoList;
+    public void setOpenPODShipmentDetailsDaoList(List<OpenPODShipmentDetailsDao> openPODShipmentDetailsDaoList) {
+        this.openPODShipmentDetailsDaoList = openPODShipmentDetailsDaoList;
     }
 }
