@@ -21,6 +21,18 @@ public interface Api {
     @POST("UserLogin")
     Call<ResponseBody> checkLogin(@Body RequestBody requestBody);
 
+    @Headers("Content-Type: application/json")
+    @POST("GetShipmentList")
+    Call<ResponseBody> getOpenShipents(@Body RequestBody requestBody);
+
+    @Headers("Content-Type: application/json")
+    @POST("GetShipmentInfo")
+    Call<ResponseBody> getShipmentDetails(@Body RequestBody requestBody);
+
+    @Headers("Content-Type: application/json")
+    @POST("GetTrackingDetails")
+    Call<ResponseBody> getTracking(@Body RequestBody requestBody);
+
 
 
 }
