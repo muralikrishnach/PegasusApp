@@ -21,6 +21,17 @@
 
     <style name="AppTheme_Dark_Dialog" parent="AppTheme_Dark_Dialog" tools:ignore="ResourceCycle" />
 
+    <style name="horizantallayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/_4dp</item>
+        <item name="android:weightSum">2</item>
+
+
+
+    </style>
+
 
 
 </resources>
