@@ -39,30 +39,6 @@ public class ShipmentDataDao {
         this.status = status;
     }
 
-    public ShipmentInfoDetailsDao getShipmentInfoDetailsDao() {
-        return shipmentInfoDetailsDao;
-    }
-
-    public void setShipmentInfoDetailsDao(ShipmentInfoDetailsDao shipmentInfoDetailsDao) {
-        this.shipmentInfoDetailsDao = shipmentInfoDetailsDao;
-    }
-
-    public ShipperInfoDetailsDao getShipperInfoDetailsDao() {
-        return shipperInfoDetailsDao;
-    }
-
-    public void setShipperInfoDetailsDao(ShipperInfoDetailsDao shipperInfoDetailsDao) {
-        this.shipperInfoDetailsDao = shipperInfoDetailsDao;
-    }
-
-    public ConsigneeInfoDetailsDao getConsigneeInfoDetailsDao() {
-        return consigneeInfoDetailsDao;
-    }
-
-    public void setConsigneeInfoDetailsDao(ConsigneeInfoDetailsDao consigneeInfoDetailsDao) {
-        this.consigneeInfoDetailsDao = consigneeInfoDetailsDao;
-    }
-
     public List<LineItemsDao> getLineItemsDaoList() {
         return lineItemsDaoList;
     }
@@ -74,9 +50,34 @@ public class ShipmentDataDao {
     private String error_description = "";
     private int count = 0;
     private boolean status = false;
-    private ShipmentInfoDetailsDao shipmentInfoDetailsDao = new ShipmentInfoDetailsDao();
-    private ShipperInfoDetailsDao shipperInfoDetailsDao = new ShipperInfoDetailsDao();
-    private ConsigneeInfoDetailsDao consigneeInfoDetailsDao = new ConsigneeInfoDetailsDao();
+    private List<ShipmentInfoDetailsDao> shipmentInfoDetailsDaoList = new ArrayList<>();
+
+    public List<ShipmentInfoDetailsDao> getShipmentInfoDetailsDaoList() {
+        return shipmentInfoDetailsDaoList;
+    }
+
+    public void setShipmentInfoDetailsDaoList(List<ShipmentInfoDetailsDao> shipmentInfoDetailsDaoList) {
+        this.shipmentInfoDetailsDaoList = shipmentInfoDetailsDaoList;
+    }
+
+    public List<ShipperInfoDetailsDao> getShipperInfoDetailsDaoList() {
+        return shipperInfoDetailsDaoList;
+    }
+
+    public void setShipperInfoDetailsDaoList(List<ShipperInfoDetailsDao> shipperInfoDetailsDaoList) {
+        this.shipperInfoDetailsDaoList = shipperInfoDetailsDaoList;
+    }
+
+    public List<ConsigneeInfoDetailsDao> getConsigneeInfoDetailsDaoList() {
+        return consigneeInfoDetailsDaoList;
+    }
+
+    public void setConsigneeInfoDetailsDaoList(List<ConsigneeInfoDetailsDao> consigneeInfoDetailsDaoList) {
+        this.consigneeInfoDetailsDaoList = consigneeInfoDetailsDaoList;
+    }
+
+    private List<ShipperInfoDetailsDao> shipperInfoDetailsDaoList = new ArrayList<>();
+    private List<ConsigneeInfoDetailsDao> consigneeInfoDetailsDaoList = new ArrayList<>();
     private List<LineItemsDao> lineItemsDaoList = new ArrayList<>();
 
 

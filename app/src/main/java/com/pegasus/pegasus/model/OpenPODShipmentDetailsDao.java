@@ -1,5 +1,9 @@
 package com.pegasus.pegasus.model;
 
+import android.os.Parcel;
+
+import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +21,6 @@ public class OpenPODShipmentDetailsDao implements Serializable {
     private List<PODShipmentsDao> podShipmentsDaoList = new ArrayList<>();
 
     private List<OpenPODShipmentDetailsDao> openPODShipmentDetailsDaoList = new ArrayList<>();
-
-
 
     public int getError_number() {
         return error_number;

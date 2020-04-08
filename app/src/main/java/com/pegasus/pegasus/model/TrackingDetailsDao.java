@@ -6,13 +6,24 @@ import java.util.List;
 
 public class TrackingDetailsDao implements Serializable {
 
-    private String error_number = "";
+    private int error_number = 0;
+    private String error_description = "";
+    private String currentLocationLatitude = "";
+    private String currentLocationLongitude = "";
+    private String originLocationColor ="";
+    private String destinationLocationColor = "";
+    private String currentLocationColor = "";
+    private int count = 0;
+    private boolean status = false;
 
-    public String getError_number() {
+
+    private List<CoordinatesDao> coordinatesDaoList = new ArrayList<>();
+
+    public int getError_number() {
         return error_number;
     }
 
-    public void setError_number(String error_number) {
+    public void setError_number(int error_number) {
         this.error_number = error_number;
     }
 
@@ -87,15 +98,5 @@ public class TrackingDetailsDao implements Serializable {
     public void setCoordinatesDaoList(List<CoordinatesDao> coordinatesDaoList) {
         this.coordinatesDaoList = coordinatesDaoList;
     }
-
-    private String error_description = "";
-    private String currentLocationLatitude = "";
-    private String currentLocationLongitude = "";
-    private String originLocationColor ="";
-    private String destinationLocationColor = "";
-    private String currentLocationColor = "";
-    private int count = 0;
-    private boolean status = false;
-    private List<CoordinatesDao> coordinatesDaoList = new ArrayList<>();
 
 }

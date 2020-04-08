@@ -40,18 +40,10 @@ public class CoordinatesDao implements Serializable {
         IconColor = iconColor;
     }
 
-    public List<CoordinatesDao> getCoordinatesDaoList() {
-        return coordinatesDaoList;
-    }
-
-    public void setCoordinatesDaoList(List<CoordinatesDao> coordinatesDaoList) {
-        this.coordinatesDaoList = coordinatesDaoList;
-    }
-
     private String Longitude = "";
     private String Time = "";
     private String IconColor = "";
 
-    private List<CoordinatesDao> coordinatesDaoList = new ArrayList<>();
+
 
 }
