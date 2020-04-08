@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8dp"
+    android:layout_marginBottom="@dimen/_8dp"
+    android:layout_marginStart="@dimen/_8dp"
+    android:layout_marginEnd="@dimen/_8dp"
+    tools:context=".view.ShipmentDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/contact_name"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsigncontactname"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/company_name"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsigncompanyname"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/address"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsignaddress"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/city"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsigncity"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/state"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsignstate"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/zip"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsignzip"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/horizantallayout"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/country"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:gravity="end"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvconsigncountry"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"/>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

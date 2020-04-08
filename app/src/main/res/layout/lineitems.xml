@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8dp"
+    android:layout_marginBottom="@dimen/_8dp"
+    android:layout_marginStart="@dimen/_8dp"
+    android:layout_marginEnd="@dimen/_8dp"
+    tools:context=".view.ShipmentDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvpieces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_4dp"
+            android:paddingEnd="@dimen/_4dp"
+            android:paddingTop="@dimen/_4dp"
+            android:paddingBottom="@dimen/_4dp"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="@dimen/activity_textsize" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvdetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_4dp"
+            android:paddingEnd="@dimen/_4dp"
+            android:paddingTop="@dimen/_4dp"
+            android:paddingBottom="@dimen/_4dp"
+            android:textSize="@dimen/activity_textsize"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvweight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_4dp"
+            android:paddingEnd="@dimen/_4dp"
+            android:paddingTop="@dimen/_4dp"
+            android:paddingBottom="@dimen/_4dp"
+            android:textSize="@dimen/activity_textsize"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:textStyle="bold"/>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
