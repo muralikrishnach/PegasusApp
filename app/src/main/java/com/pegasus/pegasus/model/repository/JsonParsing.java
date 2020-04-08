@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.ConsigneeInfoDetailsDao;
 import com.pegasus.pegasus.model.CoordinatesDao;
 import com.pegasus.pegasus.model.DataDao;
@@ -16,6 +17,7 @@ import com.pegasus.pegasus.model.ShipmentDataDao;
 import com.pegasus.pegasus.model.ShipmentInfoDetailsDao;
 import com.pegasus.pegasus.model.ShipperInfoDetailsDao;
 import com.pegasus.pegasus.model.TrackingDetailsDao;
+import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +29,14 @@ import java.util.List;
 
 public class JsonParsing {
 
+    public static final String Head1 = "OPEN SHIPMMENTS";
+    public static final String Head2 = "POD SHIPMMENTS LAST 7 DAYS";
+
    public LoginDao login(String jsonString)  {
        LoginDao loginDao = null;
 
-       JSONObject job = null;
-       JSONObject jdata = null;
+       JSONObject job;
+       JSONObject jdata;
        Log.v("","jsonString"+jsonString);
 
        if(jsonString!=null && !jsonString.isEmpty()) {
@@ -70,10 +75,13 @@ public class JsonParsing {
     public OpenPODShipmentDetailsDao openShipments(String jsonString)  {
         OpenPODShipmentDetailsDao openPodShipDao = null;
 
-        JSONObject job = null;
-        JSONObject jdata = null;
-        JSONArray jOpenArray = null;
-        JSONArray jPODArray = null;
+         String Head1 = "OPEN SHIPMMENTS";
+         String  Head2 = "POD SHIPMMENTS LAST 7 DAYS";
+
+        JSONObject job;
+        JSONObject jdata;
+        JSONArray jOpenArray;
+        JSONArray jPODArray;
 
         Log.v("","jsonString"+jsonString);
 
@@ -81,6 +89,7 @@ public class JsonParsing {
             openPodShipDao = new OpenPODShipmentDetailsDao();
             List<OpenShipmentsDao> openShipmentsDaoList = new ArrayList<>();
             List<PODShipmentsDao> podShipmentsDaoList = new ArrayList<>();
+
             try {
                 job = new JSONObject(jsonString);
                 jdata = job.getJSONObject("data");
@@ -92,6 +101,7 @@ public class JsonParsing {
                 int openshipment_count = job.getInt("openshipment_count");
                 int podshipment_count = job.getInt("podshipment_count");
                 boolean status = job.getBoolean("status");
+
 
                 if(status){
 
@@ -176,9 +186,9 @@ public class JsonParsing {
                 int count = job.getInt("count");
                 boolean status = job.getBoolean("status");
 
-                ShipmentInfoDetailsDao shipmentInfoDetailsDao = new ShipmentInfoDetailsDao();
-                ShipperInfoDetailsDao shipperInfoDetailsDao = new ShipperInfoDetailsDao();
-                ConsigneeInfoDetailsDao consigneeInfoDetailsDao = new ConsigneeInfoDetailsDao();
+                List<ShipmentInfoDetailsDao> shipmentInfoDetailsDaoList = new ArrayList<>();
+                List<ShipperInfoDetailsDao> shipperInfoDetailsDaoList = new ArrayList<>();
+                List<ConsigneeInfoDetailsDao> consigneeInfoDetailsDaoList = new ArrayList<>();
                 List<LineItemsDao> lineItemsDaoList = new ArrayList<>();
 
                 if(status){
@@ -188,13 +198,16 @@ public class JsonParsing {
                     jsonLineArray = jdata.getJSONArray("LineItems");
 
                     //ShipmentInfoDetails
+                    ShipmentInfoDetailsDao shipmentInfoDetailsDao = new ShipmentInfoDetailsDao();
                     shipmentInfoDetailsDao.setWaybillNumber(jshipInfo.getString("WaybillNumber"));
                     shipmentInfoDetailsDao.setPickupDateTime(jshipInfo.getString("PickupDateTime"));
                     shipmentInfoDetailsDao.setETADateTime(jshipInfo.getString("ETADateTime"));
                     shipmentInfoDetailsDao.setPODDateTime(jshipInfo.getString("PODDateTime"));
                     shipmentInfoDetailsDao.setStatus(jshipInfo.getString("Status"));
+                    shipmentInfoDetailsDaoList.add(shipmentInfoDetailsDao);
 
                     //ShipperInfoDetails
+                    ShipperInfoDetailsDao shipperInfoDetailsDao = new ShipperInfoDetailsDao();
                     shipperInfoDetailsDao.setShipperContactName(jshiperInfo.getString("ShipperContactName"));
                     shipperInfoDetailsDao.setShipperCompanyName(jshiperInfo.getString("ShipperCompanyName"));
                     shipperInfoDetailsDao.setShipperAddress1(jshiperInfo.getString("ShipperAddress1"));
@@ -202,9 +215,10 @@ public class JsonParsing {
                     shipperInfoDetailsDao.setShipperCity(jshiperInfo.getString("ShipperCity"));
                     shipperInfoDetailsDao.setShipperState(jshiperInfo.getString("ShipperState"));
                     shipperInfoDetailsDao.setShipperZipCode(jshiperInfo.getString("ShipperZipCode"));
-                    shipperInfoDetailsDao.setShipperCountry(jshiperInfo.getString("ShipperCountry"));
+                    shipperInfoDetailsDaoList.add(shipperInfoDetailsDao);
 
                     //ConsigneeInfoDetails
+                    ConsigneeInfoDetailsDao consigneeInfoDetailsDao = new ConsigneeInfoDetailsDao();
                     consigneeInfoDetailsDao.setConsigneeContactName(jconsignInfo.getString("ConsigneeContactName"));
                     consigneeInfoDetailsDao.setConsigneeCompanyName(jconsignInfo.getString("ConsigneeCompanyName"));
                     consigneeInfoDetailsDao.setConsigneeAddress1(jconsignInfo.getString("ConsigneeAddress1"));
@@ -213,6 +227,7 @@ public class JsonParsing {
                     consigneeInfoDetailsDao.setConsigneeState(jconsignInfo.getString("ConsigneeState"));
                     consigneeInfoDetailsDao.setConsigneeZipCode(jconsignInfo.getString("ConsigneeZipCode"));
                     consigneeInfoDetailsDao.setConsigneeCountry(jconsignInfo.getString("ConsigneeCountry"));
+                    consigneeInfoDetailsDaoList.add(consigneeInfoDetailsDao);
 
 
                     for (int i=0;i<jsonLineArray.length();i++){
@@ -234,9 +249,9 @@ public class JsonParsing {
                 shipmentDataDao.setError_description(error_description);
                 shipmentDataDao.setCount(count);
                 shipmentDataDao.setStatus(status);
-                shipmentDataDao.setShipmentInfoDetailsDao(shipmentInfoDetailsDao);
-                shipmentDataDao.setShipperInfoDetailsDao(shipperInfoDetailsDao);
-                shipmentDataDao.setConsigneeInfoDetailsDao(consigneeInfoDetailsDao);
+                shipmentDataDao.setShipmentInfoDetailsDaoList(shipmentInfoDetailsDaoList);
+                shipmentDataDao.setShipperInfoDetailsDaoList(shipperInfoDetailsDaoList);
+                shipmentDataDao.setConsigneeInfoDetailsDaoList(consigneeInfoDetailsDaoList);
                 shipmentDataDao.setLineItemsDaoList(lineItemsDaoList);
 
             } catch (JSONException e) {
@@ -250,8 +265,10 @@ public class JsonParsing {
     public TrackingDetailsDao getTrackingDetails(String jsonString){
        TrackingDetailsDao trackingDetailsDao = null;
 
-       JSONObject job;
-       JSONArray jsonDataArray;
+       JSONObject job = null;
+       JSONArray jsonDataArray=null;
+
+        Log.v("jsonString","jsonString"+jsonString);
 
        if(jsonString!=null&&jsonString.isEmpty()){
            trackingDetailsDao = new TrackingDetailsDao();
@@ -270,7 +287,10 @@ public class JsonParsing {
                int count = job.getInt("count");
                boolean status = job.getBoolean("status");
 
+               Log.v("jsonString","jsonString status"+status);
+               Log.v("jsonString","jsonString length"+jsonDataArray.length());
                if(status){
+
                    for (int i=0;i<jsonDataArray.length();i++){
                        JSONObject jsonObject = jsonDataArray.getJSONObject(i);
                        CoordinatesDao coordinatesDao = new CoordinatesDao();
@@ -279,10 +299,20 @@ public class JsonParsing {
                        coordinatesDao.setTime(jsonObject.getString("Time"));
                        coordinatesDao.setIconColor(jsonObject.getString("IconColor"));
                        coordinatesDaoList.add(coordinatesDao);
-               }
+                   }
 
                }
 
+               Log.v("","LatLong"+coordinatesDaoList.size());
+
+               trackingDetailsDao.setError_description(error_description);
+               trackingDetailsDao.setError_number(error_number);
+               trackingDetailsDao.setCurrentLocationLatitude(currentLocationLatitude);
+               trackingDetailsDao.setCurrentLocationLongitude(currentLocationLongitude);
+               trackingDetailsDao.setCurrentLocationColor(currentLocationColor);
+               trackingDetailsDao.setDestinationLocationColor(destinationLocationColor);
+               trackingDetailsDao.setCount(count);
+               trackingDetailsDao.setStatus(status);
                trackingDetailsDao.setCoordinatesDaoList(coordinatesDaoList);
 
            } catch (JSONException e) {
