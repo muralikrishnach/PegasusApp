@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 viewModel.checkLogin().observe(this, new Observer<LoginDao>() {
                     @Override
                     public void onChanged(LoginDao loginDataDo) {
-                        LoginDao response = loginDataDo;
+                        final LoginDao response = loginDataDo;
                         if(response!=null){
                             progressDialog.dismiss();
                             btnLogin.setEnabled(true);
@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
                                         Intent i = new Intent(LoginActivity.this,OpenShipmentActivity.class);
+                                        i.putExtra("BillNo",response.getDataDao().getBillNo());
                                         startActivity(i);
                                     }
                                 });
