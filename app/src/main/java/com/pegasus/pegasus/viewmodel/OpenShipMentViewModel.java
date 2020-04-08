@@ -28,23 +28,23 @@ public class OpenShipMentViewModel extends ViewModel {
 
     MutableLiveData<OpenPODShipmentDetailsDao> shipLiveData;
 
-    public MutableLiveData<OpenPODShipmentDetailsDao> getShipmentDetails() {
+    public MutableLiveData<OpenPODShipmentDetailsDao> getShipmentDetails(String BillNo) {
 
         if (shipLiveData == null) {
 
             shipLiveData = new MutableLiveData<>();
 
-            loadShipMents();
+            loadShipMents(BillNo);
 
         }
         return shipLiveData;
     }
 
-    private void loadShipMents() {
+    private void loadShipMents(String BillNo) {
 
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("BillNo","165309");
+            jsonParams.put("BillNo",BillNo);
         } catch (JSONException e) {
             e.printStackTrace();
         }

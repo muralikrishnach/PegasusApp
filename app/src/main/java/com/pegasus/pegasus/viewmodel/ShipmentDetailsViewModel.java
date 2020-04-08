@@ -24,11 +24,11 @@ public class ShipmentDetailsViewModel extends ViewModel {
     private MutableLiveData<ShipmentDataDao> shipmentLiveData;
     private MutableLiveData<TrackingDetailsDao> trackingLiveData;
 
-    public MutableLiveData<ShipmentDataDao> getShipmentsData(){
+    public MutableLiveData<ShipmentDataDao> getShipmentsData(String WayBillNo){
         if(shipmentLiveData==null){
             shipmentLiveData = new MutableLiveData<>();
 
-            getShipmentsDetails();
+            getShipmentsDetails(WayBillNo);
         }
         return shipmentLiveData;
     }
@@ -42,11 +42,11 @@ public class ShipmentDetailsViewModel extends ViewModel {
         return trackingLiveData;
     }
 
-    public void getShipmentsDetails(){
+    public void getShipmentsDetails(String WayBillNo){
 
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("WaybillNumber","22462370");
+            jsonParams.put("WaybillNumber",WayBillNo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
