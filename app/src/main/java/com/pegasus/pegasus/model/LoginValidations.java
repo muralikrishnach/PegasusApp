@@ -18,7 +18,7 @@ public class LoginValidations implements Serializable {
     }
 
     public void setUserName(@Nullable String userName) {
-        UserName = userName;
+        this.UserName = userName;
     }
 
     @Nullable
@@ -27,13 +27,13 @@ public class LoginValidations implements Serializable {
     }
 
     public void setPassword(@Nullable String password) {
-        Password = password;
+        this.Password = password;
     }
 
 
     public boolean isValidUserName()
     {
-        if(UserName != null && UserName.length() >= 0)
+        if(this.UserName != null && this.UserName.length() >= 0)
         {
             return true;
         }else {
@@ -43,7 +43,7 @@ public class LoginValidations implements Serializable {
 
     public boolean isValidPassword()
     {
-        if(Password != null && Password.length() >= 0)
+        if(this.Password != null && this.Password.length() >= 0)
         {
             return true;
         }else {
