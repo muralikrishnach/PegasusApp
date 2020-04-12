@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -29,10 +31,16 @@ import java.util.List;
 public class ShipmentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private Button btn;
+    private AppCompatTextView title;
+    private AppCompatImageButton imgback,imgPower;
+
 
     private ShipmentDetailsViewModel shipmentDetailsViewModel;
     private Toolbar toolbar;
+
+    ShipmentDetailsAdapter myAdapter;
+
+
 
     String WayBillNo = "";
 
@@ -48,13 +56,22 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
 
         toolbar = findViewById(R.id.toolbar_widget);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        btn = findViewById(R.id.button);
 
-        btn.setOnClickListener(this);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        title = findViewById(R.id.tvtitle);
+        imgback = findViewById(R.id.imgBack);
+        imgPower = findViewById(R.id.imgLogout);
+
+        imgback.setVisibility(View.VISIBLE);
+        imgPower.setVisibility(View.GONE);
+
+        imgback.setOnClickListener(this);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(ShipmentDetailsActivity.this));
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("SHIPMENTS DETAILS");
+        title.setText("SHIPMENTS DETAILS");
 
         shipmentDetailsViewModel = ViewModelProviders.of(this).get(ShipmentDetailsViewModel.class);
 
@@ -67,10 +84,11 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
                 parentDataList.add(new TitleParentData(ScreenNames.Head3,shipmentDataDao.getConsigneeInfoDetailsDaoList()));
                 parentDataList.add(new TitleParentData(ScreenNames.Head4,shipmentDataDao.getLineItemsDaoList()));
 
-                ShipmentDetailsAdapter myAdapter = new ShipmentDetailsAdapter(ShipmentDetailsActivity.this,parentDataList);
+                myAdapter = new ShipmentDetailsAdapter(ShipmentDetailsActivity.this,parentDataList);
                 recyclerView.addItemDecoration(new DividerItemDecoration(ShipmentDetailsActivity.this, LinearLayoutManager.VERTICAL));
-                recyclerView.setAdapter(myAdapter);
                 recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(myAdapter);
+
 
 
             }
@@ -82,15 +100,9 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button:
+            case R.id.imgBack:
 
-                shipmentDetailsViewModel.getTrackingLiveData().observe(this, new Observer<TrackingDetailsDao>() {
-                    @Override
-                    public void onChanged(TrackingDetailsDao trackingDetailsDao) {
-                        Log.v("","Status"+trackingDetailsDao.isStatus());
-                        Log.v("LineItemsDao","CoordinatesDaoList size---"+ trackingDetailsDao.getCoordinatesDaoList().size());
-                    }
-                });
+                    finish();
 
                 break;
         }

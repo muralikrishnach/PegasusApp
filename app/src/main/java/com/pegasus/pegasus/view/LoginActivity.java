@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,7 +36,7 @@ import okhttp3.RequestBody;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextInputEditText editText_loginid,editText_password;
-    Button btnLogin;
+    AppCompatButton btnLogin;
     private Context context;
 
     private LoginViewModel viewModel;
@@ -65,8 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnlogin:
 
                 LoginValidations data = new LoginValidations();
-                data.setUserName(editText_loginid.getText().toString());
-                data.setPassword(editText_password.getText().toString());
+                data.setUserName(editText_loginid.getText().toString().trim());
+                data.setPassword(editText_password.getText().toString().trim());
                 viewModel.setUserdata(data);
 
                 final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, ProgressDialog.THEME_HOLO_DARK);
@@ -97,8 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 });
                                 alert.show();
-                               /* Toast.makeText(LoginActivity.this,"Login Succesfull with "+editText_loginid.getText().toString(),Toast.LENGTH_LONG).show();
-                                finish();*/
+
                             }else {
                                 alert.setMessage("Login Failed");
                                 alert.setCancelable(false);
@@ -109,8 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 });
                                 alert.show();
-                                /*Log.v("Status","false");
-                                Toast.makeText(LoginActivity.this,"InValid Credentials",Toast.LENGTH_LONG).show();*/
+
                             }
                         }else {
                             btnLogin.setEnabled(true);
