@@ -2,9 +2,7 @@ package com.pegasus.pegasus.view;
 
 
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,19 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.ConsigneeInfoDetailsDao;
-import com.pegasus.pegasus.model.LineItemsDao;
 import com.pegasus.pegasus.model.ShipmentDataDao;
 import com.pegasus.pegasus.model.ShipmentInfoDetailsDao;
 import com.pegasus.pegasus.model.ShipperInfoDetailsDao;
-import com.pegasus.pegasus.model.TitleParentData;
 import com.pegasus.pegasus.view.adapters.LineAdapter;
-import com.pegasus.pegasus.view.adapters.OpenShipmentAdapter;
-import com.pegasus.pegasus.view.adapters.ShipmentDetailsAdapter;
-import com.pegasus.pegasus.view.viewholders.ScreenNames;
 import com.pegasus.pegasus.viewmodel.ShipmentDetailsViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ShipmentDetails extends AppCompatActivity implements View.OnClickListener {
@@ -99,8 +89,8 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         imgPower = findViewById(R.id.imgLogout);
 
 
-        separator1 = findViewById(R.id.shipmentseparate);
-        separator2 = findViewById(R.id.shipperseparate);
+        separator1 = findViewById(R.id.shipmentid);
+        separator2 = findViewById(R.id.shipperid);
         separator3 = findViewById(R.id.consigneeseparate);
         separator4 = findViewById(R.id.lineseparate);
 
