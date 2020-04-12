@@ -36,6 +36,7 @@
 
         <activity android:name=".view.OpenShipmentActivity"/>
         <activity android:name=".view.ShipmentDetailsActivity"/>
+        <activity android:name=".view.ShipmentDetails"/>
 
     </application>
 
