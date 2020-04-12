@@ -9,16 +9,25 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.OpenPODShipmentDetailsDao;
+import com.pegasus.pegasus.model.OpenShipmentsDao;
+import com.pegasus.pegasus.model.PODShipmentsDao;
 import com.pegasus.pegasus.model.TitleParentData;
+import com.pegasus.pegasus.model.TrackingDetailsDao;
 import com.pegasus.pegasus.model.repository.JsonParsing;
+import com.pegasus.pegasus.view.ShipmentDetails;
 import com.pegasus.pegasus.view.ShipmentDetailsActivity;
 import com.pegasus.pegasus.view.viewholders.ChildParentViewHolder;
 import com.pegasus.pegasus.view.viewholders.TitleParentViewHolder;
+import com.pegasus.pegasus.viewmodel.OpenShipMentViewModel;
+import com.pegasus.pegasus.viewmodel.TrackingViewModel;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
@@ -28,12 +37,15 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
 
     public Context context;
     private List<? extends ExpandableGroup> headerName;
+    private TrackingViewModel trackingViewModel;
 
 
     public OpenShipmentAdapter(Context context,List<? extends ExpandableGroup> groups) {
         super(groups);
         this.context = context;
         this.headerName = groups;
+
+        trackingViewModel = ViewModelProviders.of((FragmentActivity) context).get(TrackingViewModel.class);
     }
 
 
@@ -68,15 +80,38 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
         holder.imglocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String waybillno = "";
+                if(group.getTitle().equalsIgnoreCase(JsonParsing.Head1)){
+                    OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
+                    waybillno = openShipmentsDao.getWaybillNumber();
+                }else {
+                    OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
+                    waybillno = openShipmentsDao.getWaybillNumber();
+                }
+                trackingViewModel.getTrackingLiveData(waybillno).observe((FragmentActivity)context, new Observer<TrackingDetailsDao>() {
+                    @Override
+                    public void onChanged(TrackingDetailsDao trackingDetailsDao) {
+//                        Toast.makeText(context,""+trackingDetailsDao.getCoordinatesDaoList(),Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, ShipmentDetailsActivity.class);
-                i.putExtra("WayBillNo","22462370");
+                String waybillno = "";
+                if(group.getTitle().equalsIgnoreCase(JsonParsing.Head1)){
+                    OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
+                    waybillno = openShipmentsDao.getWaybillNumber();
+                }else {
+                    PODShipmentsDao podShipmentsDao = (PODShipmentsDao)childData;
+                    waybillno = podShipmentsDao.getWaybillNumber();
+                }
+
+//                Intent i = new Intent(context, ShipmentDetailsActivity.class);
+                Intent i = new Intent(context, ShipmentDetails.class);
+                i.putExtra("WayBillNo",waybillno);
                 context.startActivity(i);
             }
         });
