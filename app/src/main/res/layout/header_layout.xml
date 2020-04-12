@@ -5,23 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/idHeader"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/_8dp"
-        android:paddingTop="@dimen/_8dp"
-        android:paddingEnd="@dimen/_8dp"
-        android:paddingBottom="@dimen/_8dp"
-        android:drawableRight="@drawable/arrow_down"
-        android:text="@string/openshipent"
-        android:textColor="@color/white"
-        android:textSize="@dimen/activity_textsize"
-        android:textStyle="bold"
+        tools:ignore="MissingConstraints">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lin1"
+        style="@style/SeperatorGrayVertical" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/idHeader"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/header"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_16dp"
+            android:paddingTop="@dimen/_8dp"
+            android:paddingEnd="@dimen/_8dp"
+            android:paddingBottom="@dimen/_8dp"
+            android:drawableRight="@drawable/arrow_down"
+            android:drawableTint="@color/aegean"
+            android:text="@string/openshipent"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activity_textsize"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="3dp" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/SeperatorGrayhorizantal"
+        android:layout_height="@dimen/_8dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="3dp" />
+        android:backgroundTint="@color/white"/>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

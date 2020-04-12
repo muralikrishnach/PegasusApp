@@ -20,18 +20,18 @@
             android:id="@+id/tvpieces"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_4dp"
+            android:paddingStart="@dimen/_16dp"
             android:paddingEnd="@dimen/_4dp"
             android:paddingTop="@dimen/_4dp"
             android:paddingBottom="@dimen/_4dp"
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Body2"
             android:textSize="@dimen/activity_textsize" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvdetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_4dp"
+            android:paddingStart="@dimen/_16dp"
             android:paddingEnd="@dimen/_4dp"
             android:paddingTop="@dimen/_4dp"
             android:paddingBottom="@dimen/_4dp"
@@ -43,12 +43,12 @@
             android:id="@+id/tvweight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_4dp"
+            android:paddingStart="@dimen/_16dp"
             android:paddingEnd="@dimen/_4dp"
             android:paddingTop="@dimen/_4dp"
             android:paddingBottom="@dimen/_4dp"
             android:textSize="@dimen/activity_textsize"
-            style="@style/TextAppearance.AppCompat.Body2"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold"/>
 
 

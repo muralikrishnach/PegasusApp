@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/_8dp"
+    android:paddingBottom="@dimen/_8dp"
+    android:paddingStart="@dimen/_8dp"
+    android:paddingEnd="@dimen/_8dp"
     android:orientation="vertical">
 
     <include
         android:visibility="gone"
         android:id="@+id/shipmentcontent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         layout="@layout/shipmentdetails"/>
 
     <include
         android:visibility="gone"
         android:id="@+id/shippercontent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         layout="@layout/shipperdetails"/>
 
     <include
         android:visibility="gone"
         android:id="@+id/consigneecontent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         layout="@layout/consigneedetails"/>
 
     <include
         android:visibility="gone"
         android:id="@+id/lineitemcontent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         layout="@layout/lineitems"/>
 
 </LinearLayout>

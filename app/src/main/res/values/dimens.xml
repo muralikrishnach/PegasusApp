@@ -6,8 +6,11 @@
 
     <dimen name="activity_text_input_layout_size">24sp</dimen>
     <dimen name="activity_textsize">14sp</dimen>
+    <dimen name="activity_headsize">18sp</dimen>
     <dimen name="_4dp">4dp</dimen>
     <dimen name="_8dp">8dp</dimen>
+
+    <dimen name="_16dp">48dp</dimen>
 
 
 
