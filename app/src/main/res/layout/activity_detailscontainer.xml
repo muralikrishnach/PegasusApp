@@ -33,7 +33,7 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/tvtitle"
-                android:layout_width="260dp"
+                android:layout_width="240dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/_8dp"
                 android:backgroundTintMode="@color/whitee"
@@ -67,7 +67,7 @@
             android:paddingTop="@dimen/_8dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/shipmentseparate"
+                android:id="@+id/shipmentid"
                 android:background="@color/aegean"
                 style="@style/SeperatorGrayVertical" />
 
@@ -77,7 +77,7 @@
                 android:layout_height="60dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/aegean"
+                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_16dp"
                 android:paddingTop="@dimen/_8dp"
@@ -111,7 +111,7 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/shipperseparate"
+                android:id="@+id/shipperid"
                 android:background="@color/aegean"
                 style="@style/SeperatorGrayVertical" />
 
@@ -121,7 +121,7 @@
                 android:layout_height="60dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/aegean"
+                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_16dp"
                 android:paddingTop="@dimen/_8dp"
@@ -165,7 +165,7 @@
                 android:layout_height="60dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/aegean"
+                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_16dp"
                 android:paddingTop="@dimen/_8dp"
@@ -210,7 +210,7 @@
                 android:layout_height="60dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/aegean"
+                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_16dp"
                 android:paddingTop="@dimen/_8dp"

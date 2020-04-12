@@ -25,7 +25,7 @@
             android:paddingEnd="@dimen/_8dp"
             android:paddingBottom="@dimen/_8dp"
             android:drawableRight="@drawable/arrow_down"
-            android:drawableTint="@color/aegean"
+            android:drawableTint="@color/whitee"
             android:text="@string/openshipent"
             android:textColor="@color/white"
             android:textSize="@dimen/activity_textsize"
