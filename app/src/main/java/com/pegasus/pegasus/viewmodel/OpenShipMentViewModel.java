@@ -9,6 +9,7 @@ import com.pegasus.pegasus.model.LoginDao;
 import com.pegasus.pegasus.model.OpenShipmentsDao;
 import com.pegasus.pegasus.model.PODShipmentsDao;
 import com.pegasus.pegasus.model.OpenPODShipmentDetailsDao;
+import com.pegasus.pegasus.model.TrackingDetailsDao;
 import com.pegasus.pegasus.model.repository.Api;
 import com.pegasus.pegasus.model.repository.JsonParsing;
 import com.pegasus.pegasus.model.repository.RetrofitClient;
@@ -26,7 +27,8 @@ import retrofit2.Response;
 
 public class OpenShipMentViewModel extends ViewModel {
 
-    MutableLiveData<OpenPODShipmentDetailsDao> shipLiveData;
+    private MutableLiveData<OpenPODShipmentDetailsDao> shipLiveData;
+
 
     public MutableLiveData<OpenPODShipmentDetailsDao> getShipmentDetails(String BillNo) {
 
@@ -39,6 +41,8 @@ public class OpenShipMentViewModel extends ViewModel {
         }
         return shipLiveData;
     }
+
+
 
     private void loadShipMents(String BillNo) {
 
@@ -73,6 +77,8 @@ public class OpenShipMentViewModel extends ViewModel {
 
 
     }
+
+
 
 
 

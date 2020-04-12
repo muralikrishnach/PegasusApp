@@ -92,7 +92,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public boolean isValidUserName(){
-        if(userdata.getUserName()==null || userdata.getUserName().isEmpty()){
+        if(this.userdata.getUserName()==null || this.userdata.getUserName().isEmpty()){
             return false;
         }else {
             return true;
@@ -100,7 +100,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public boolean isValidPassword(){
-        if(userdata.getPassword()==null || userdata.getPassword().isEmpty()){
+        if(this.userdata.getPassword()==null || this.userdata.getPassword().isEmpty()){
             return false;
         }else {
             return true;

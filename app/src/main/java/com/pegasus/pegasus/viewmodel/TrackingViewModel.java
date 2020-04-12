@@ -1,10 +1,8 @@
 package com.pegasus.pegasus.viewmodel;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.pegasus.pegasus.model.ShipmentDataDao;
 import com.pegasus.pegasus.model.TrackingDetailsDao;
 import com.pegasus.pegasus.model.repository.Api;
 import com.pegasus.pegasus.model.repository.JsonParsing;
@@ -19,46 +17,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShipmentDetailsViewModel extends ViewModel {
+public class TrackingViewModel extends ViewModel {
 
-    private MutableLiveData<ShipmentDataDao> shipmentLiveData;
+    private MutableLiveData<TrackingDetailsDao> trackingLiveData;
 
 
-    public MutableLiveData<ShipmentDataDao> getShipmentsData(String WayBillNo){
-        if(shipmentLiveData==null){
-            shipmentLiveData = new MutableLiveData<>();
+    public MutableLiveData<TrackingDetailsDao> getTrackingLiveData(String WayBillNo){
+        if(trackingLiveData==null){
+            trackingLiveData = new MutableLiveData<>();
 
-            getShipmentsDetails(WayBillNo);
+            getTrackingDetails(WayBillNo);
         }
-        return shipmentLiveData;
+        return trackingLiveData;
     }
 
-
-
-    public void getShipmentsDetails(String WayBillNo){
+    public void getTrackingDetails(String WayBill){
 
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("WaybillNumber",WayBillNo);
+            jsonParams.put("WaybillNumber",WayBill);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         Api retrofitClient =  RetrofitClient.getClient().create(Api.class);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonParams.toString());
-        Call<ResponseBody> call = retrofitClient.getShipmentDetails(body);
+        Call<ResponseBody> call = retrofitClient.getTracking(body);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse( Call<ResponseBody> call,  Response<ResponseBody> response) {
-                ShipmentDataDao shipmentDataDao = null;
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                TrackingDetailsDao trackingDetailsDao = null;
                 try {
                     JsonParsing parsing = new JsonParsing();
-                    shipmentDataDao = parsing.getShipmentDetails(response.body().string());
+                    trackingDetailsDao = parsing.getTrackingDetails(response.body().string());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                shipmentLiveData.setValue(shipmentDataDao);
+                trackingLiveData.setValue(trackingDetailsDao);
             }
 
             @Override
@@ -68,8 +64,4 @@ public class ShipmentDetailsViewModel extends ViewModel {
         });
 
     }
-
-
-
-
 }
