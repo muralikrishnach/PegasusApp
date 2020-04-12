@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ChildParentViewHolder extends ChildViewHolder {
 
-     public AppCompatTextView wayillno,srctodest,status;
+     public AppCompatTextView wayillno,srctodest,dest,status;
      public AppCompatImageButton imglocation;
      public CardView cardView;
 
@@ -27,6 +27,7 @@ public class ChildParentViewHolder extends ChildViewHolder {
         super(itemView);
         wayillno = itemView.findViewById(R.id.tvwaybillno);
         srctodest = itemView.findViewById(R.id.tvsrcdest);
+        dest = itemView.findViewById(R.id.tvdest);
         status    = itemView.findViewById(R.id.tvstatus);
         imglocation = itemView.findViewById(R.id.btnLocation);
         cardView  = itemView.findViewById(R.id.card_view);
@@ -35,14 +36,16 @@ public class ChildParentViewHolder extends ChildViewHolder {
     public void setOpenShipment(Object object){
         OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)object;
         wayillno.setText(openShipmentsDao.getWaybillNumber());
-        srctodest.setText(openShipmentsDao.getShipperCity()+" to "+openShipmentsDao.getConsigneeCity());
+        srctodest.setText(openShipmentsDao.getShipperCity());
+        dest.setText(openShipmentsDao.getConsigneeCity());
         status.setText("Current Status - "+openShipmentsDao.getStatus());
     }
 
     public void setPODShipment(Object object){
         PODShipmentsDao podShipmentsDao = (PODShipmentsDao)object;
         wayillno.setText(podShipmentsDao.getWaybillNumber());
-        srctodest.setText(podShipmentsDao.getShipperCity()+" to "+podShipmentsDao.getConsigneeCity());
+        srctodest.setText(podShipmentsDao.getShipperCity());
+        dest.setText(podShipmentsDao.getConsigneeCity());
         status.setText("Current Status - "+podShipmentsDao.getStatus());
     }
 
