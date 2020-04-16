@@ -24,7 +24,8 @@ public class TrackingViewModel extends ViewModel {
 
     public MutableLiveData<TrackingDetailsDao> getTrackingLiveData(String WayBillNo){
         if(trackingLiveData==null){
-            trackingLiveData = new MutableLiveData<>();
+
+            trackingLiveData = new MutableLiveData<TrackingDetailsDao>();
 
             getTrackingDetails(WayBillNo);
         }
@@ -48,13 +49,15 @@ public class TrackingViewModel extends ViewModel {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 TrackingDetailsDao trackingDetailsDao = null;
-                try {
-                    JsonParsing parsing = new JsonParsing();
-                    trackingDetailsDao = parsing.getTrackingDetails(response.body().string());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if(response!=null){
+                    try{
+                        JsonParsing jsonParsing = new JsonParsing();
+                        trackingDetailsDao = jsonParsing.getTackingData(response.body().string());
+                    }catch(Exception n){
+                        n.printStackTrace();
+                    }
+                    trackingLiveData.setValue(trackingDetailsDao);
                 }
-                trackingLiveData.setValue(trackingDetailsDao);
             }
 
             @Override

@@ -70,16 +70,18 @@ public class OpenShipmentActivity extends AppCompatActivity implements View.OnCl
         openShipMentViewModel.getShipmentDetails(BillNo).observe(this, new Observer<OpenPODShipmentDetailsDao>() {
             @Override
             public void onChanged(OpenPODShipmentDetailsDao openPODShipmentDetailsDao) {
-                List<TitleParentData> titleParentDataList = new ArrayList<>();
-                titleParentDataList.add(new TitleParentData(JsonParsing.Head1,openPODShipmentDetailsDao.getOpenShipmentsDaoList()));
-                titleParentDataList.add(new TitleParentData(JsonParsing.Head2,openPODShipmentDetailsDao.getPodShipmentsDaoList()));
+                if (openPODShipmentDetailsDao!=null) {
 
-                myAdapter = new OpenShipmentAdapter(OpenShipmentActivity.this,titleParentDataList);
-                recyclerView.setAdapter(myAdapter);
-                recyclerView.addItemDecoration(new DividerItemDecoration(OpenShipmentActivity.this,LinearLayoutManager.VERTICAL));
-                recyclerView.setHasFixedSize(true);
+                    List<TitleParentData> titleParentDataList = new ArrayList<>();
+                    titleParentDataList.add(new TitleParentData(JsonParsing.Head1, openPODShipmentDetailsDao.getOpenShipmentsDaoList()));
+                    titleParentDataList.add(new TitleParentData(JsonParsing.Head2, openPODShipmentDetailsDao.getPodShipmentsDaoList()));
 
+                    myAdapter = new OpenShipmentAdapter(OpenShipmentActivity.this, titleParentDataList);
+                    recyclerView.setAdapter(myAdapter);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(OpenShipmentActivity.this, LinearLayoutManager.VERTICAL));
+                    recyclerView.setHasFixedSize(true);
 
+                }
             }
         });
 

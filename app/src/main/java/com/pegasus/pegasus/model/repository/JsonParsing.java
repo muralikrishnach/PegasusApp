@@ -262,64 +262,56 @@ public class JsonParsing {
        return shipmentDataDao;
     }
 
-    public TrackingDetailsDao getTrackingDetails(String jsonString){
+
+    public TrackingDetailsDao getTackingData(String jsonString){
        TrackingDetailsDao trackingDetailsDao = null;
 
-       JSONObject job = null;
-       JSONArray jsonDataArray=null;
+       if(jsonString!=null && !jsonString.isEmpty()){
+           JSONObject job;
+           JSONArray jsonArray;
 
-        Log.v("jsonString","jsonString"+jsonString);
-
-       if(jsonString!=null&&jsonString.isEmpty()){
-           trackingDetailsDao = new TrackingDetailsDao();
-           List<CoordinatesDao> coordinatesDaoList = new ArrayList<>();
            try {
                job = new JSONObject(jsonString);
-               jsonDataArray = job.getJSONArray("data");
+               jsonArray = job.getJSONArray("data");
 
-               int error_number = job.getInt("error_number");
-               String error_description = job.getString("error_description");
-               String currentLocationLatitude = job.getString("currentLocationLatitude");
-               String currentLocationLongitude = job.getString("currentLocationLongitude");
-               String originLocationColor = job.getString("originLocationColor");
-               String destinationLocationColor = job.getString("destinationLocationColor");
-               String currentLocationColor = job.getString("currentLocationColor");
-               int count = job.getInt("count");
-               boolean status = job.getBoolean("status");
+               trackingDetailsDao = new TrackingDetailsDao();
+               List<CoordinatesDao> coordinatesDaoList = new ArrayList<>();
 
-               Log.v("jsonString","jsonString status"+status);
-               Log.v("jsonString","jsonString length"+jsonDataArray.length());
-               if(status){
+               trackingDetailsDao.setError_number(job.getInt("error_number"));
+               trackingDetailsDao.setError_description(job.getString("error_description"));
+               trackingDetailsDao.setCurrentLocationLatitude(job.getString("currentLocationLatitude"));
+               trackingDetailsDao.setCurrentLocationLongitude(job.getString("currentLocationLongitude"));
+               trackingDetailsDao.setOriginLocationColor(job.getString("originLocationColor"));
+               trackingDetailsDao.setDestinationLocationColor(job.getString("destinationLocationColor"));
+               trackingDetailsDao.setCurrentLocationColor(job.getString("currentLocationColor"));
+               trackingDetailsDao.setCount(job.getInt("count"));
+               trackingDetailsDao.setStatus(job.getBoolean("status"));
 
-                   for (int i=0;i<jsonDataArray.length();i++){
-                       JSONObject jsonObject = jsonDataArray.getJSONObject(i);
-                       CoordinatesDao coordinatesDao = new CoordinatesDao();
-                       coordinatesDao.setLatitude(jsonObject.getString("Latitude"));
-                       coordinatesDao.setLongitude(jsonObject.getString("Longitude"));
-                       coordinatesDao.setTime(jsonObject.getString("Time"));
-                       coordinatesDao.setIconColor(jsonObject.getString("IconColor"));
+               boolean Status = job.getBoolean("status");
+
+               if(Status){
+                   for(int i=0;i<jsonArray.length();i++){
+                       JSONObject job1 = jsonArray.getJSONObject(i);
+
+                       CoordinatesDao coordinatesDao  = new CoordinatesDao();
+                       coordinatesDao.setLatitude(job1.getString("Latitude"));
+                       coordinatesDao.setLongitude(job1.getString("Longitude"));
+                       coordinatesDao.setTime(job1.getString("Time"));
+                       coordinatesDao.setIconColor(job1.getString("IconColor"));
                        coordinatesDaoList.add(coordinatesDao);
                    }
-
                }
 
-               Log.v("","LatLong"+coordinatesDaoList.size());
-
-               trackingDetailsDao.setError_description(error_description);
-               trackingDetailsDao.setError_number(error_number);
-               trackingDetailsDao.setCurrentLocationLatitude(currentLocationLatitude);
-               trackingDetailsDao.setCurrentLocationLongitude(currentLocationLongitude);
-               trackingDetailsDao.setCurrentLocationColor(currentLocationColor);
-               trackingDetailsDao.setDestinationLocationColor(destinationLocationColor);
-               trackingDetailsDao.setCount(count);
-               trackingDetailsDao.setStatus(status);
                trackingDetailsDao.setCoordinatesDaoList(coordinatesDaoList);
+
+
 
            } catch (JSONException e) {
                e.printStackTrace();
            }
 
        }
+
 
        return trackingDetailsDao;
     }

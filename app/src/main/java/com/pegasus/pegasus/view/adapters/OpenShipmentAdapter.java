@@ -2,6 +2,7 @@ package com.pegasus.pegasus.view.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.pegasus.pegasus.model.PODShipmentsDao;
 import com.pegasus.pegasus.model.TitleParentData;
 import com.pegasus.pegasus.model.TrackingDetailsDao;
 import com.pegasus.pegasus.model.repository.JsonParsing;
+import com.pegasus.pegasus.view.MapsActivity;
 import com.pegasus.pegasus.view.ShipmentDetails;
 import com.pegasus.pegasus.view.ShipmentDetailsActivity;
 import com.pegasus.pegasus.view.viewholders.ChildParentViewHolder;
@@ -91,7 +93,21 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
                 trackingViewModel.getTrackingLiveData(waybillno).observe((FragmentActivity)context, new Observer<TrackingDetailsDao>() {
                     @Override
                     public void onChanged(TrackingDetailsDao trackingDetailsDao) {
-//                        Toast.makeText(context,""+trackingDetailsDao.getCoordinatesDaoList(),Toast.LENGTH_LONG).show();
+                        if(trackingDetailsDao!=null){
+
+                            int size = trackingDetailsDao.getCoordinatesDaoList().size();
+
+                            String deslatitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLatitude();
+                            String deslangitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLongitude();
+
+                            /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+trackingDetailsDao.getCurrentLocationLatitude()+","+trackingDetailsDao.getCurrentLocationLongitude()+"&daddr="+deslatitude+","+deslangitude));
+                            context.startActivity(intent);*/
+                            Intent i = new Intent(context, MapsActivity.class);
+                            i.putExtra("Tracking",trackingDetailsDao);
+                            context.startActivity(i);
+                        }else {
+
+                        }
                     }
                 });
             }

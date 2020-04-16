@@ -148,131 +148,147 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.tvShipmentInfo:
 
-                separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
-                separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                if(shipmentData!=null) {
 
-                head1.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
-                head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
+                    separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                head1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_up,0);
-                head2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
+                    head1.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
+                    head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                shipmenentContent.setVisibility(View.VISIBLE);
-                shipperContent.setVisibility(View.GONE);
-                consigneeContent.setVisibility(View.GONE);
-                lineContent.setVisibility(View.GONE);
+                    head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
+                    head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
 
-                ShipmentInfoDetailsDao shipmentInfoDetailsDao = shipmentData.getShipmentInfoDetailsDaoList().get(0);
+                    shipmenentContent.setVisibility(View.VISIBLE);
+                    shipperContent.setVisibility(View.GONE);
+                    consigneeContent.setVisibility(View.GONE);
+                    lineContent.setVisibility(View.GONE);
 
-                waybill.setText(shipmentInfoDetailsDao.getWaybillNumber());
-                pickupdate.setText(shipmentInfoDetailsDao.getPickupDateTime());
-                eta.setText(shipmentInfoDetailsDao.getETADateTime());
-                deliverydate.setText(shipmentInfoDetailsDao.getPODDateTime());
-                currentstatus.setText(shipmentInfoDetailsDao.getStatus());
+                    ShipmentInfoDetailsDao shipmentInfoDetailsDao = shipmentData.getShipmentInfoDetailsDaoList().get(0);
+
+                    waybill.setText(shipmentInfoDetailsDao.getWaybillNumber());
+                    pickupdate.setText(shipmentInfoDetailsDao.getPickupDateTime());
+                    eta.setText(shipmentInfoDetailsDao.getETADateTime());
+                    deliverydate.setText(shipmentInfoDetailsDao.getPODDateTime());
+                    currentstatus.setText(shipmentInfoDetailsDao.getStatus());
+
+                }
 
 
                 break;
 
             case R.id.tvShipperInfo:
 
-                separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
-                separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                if(shipmentData!=null) {
 
-                head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head2.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
-                head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
+                    separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                head1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_up,0);
-                head3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
+                    head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head2.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
+                    head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                shipmenentContent.setVisibility(View.GONE);
-                shipperContent.setVisibility(View.VISIBLE);
-                consigneeContent.setVisibility(View.GONE);
-                lineContent.setVisibility(View.GONE);
+                    head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
+                    head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
 
-                ShipperInfoDetailsDao shipperInfoDetailsDao = shipmentData.getShipperInfoDetailsDaoList().get(0);
+                    shipmenentContent.setVisibility(View.GONE);
+                    shipperContent.setVisibility(View.VISIBLE);
+                    consigneeContent.setVisibility(View.GONE);
+                    lineContent.setVisibility(View.GONE);
 
-                contactname.setText(shipperInfoDetailsDao.getShipperContactName());
-                companyname.setText(shipperInfoDetailsDao.getShipperCompanyName());
-                address.setText(shipperInfoDetailsDao.getShipperAddress1());
-                city.setText(shipperInfoDetailsDao.getShipperCity());
-                state.setText(shipperInfoDetailsDao.getShipperState());
-                zip.setText(shipperInfoDetailsDao.getShipperZipCode());
-                country.setText(shipperInfoDetailsDao.getShipperCountry());
+                    ShipperInfoDetailsDao shipperInfoDetailsDao = shipmentData.getShipperInfoDetailsDaoList().get(0);
+
+                    contactname.setText(shipperInfoDetailsDao.getShipperContactName());
+                    companyname.setText(shipperInfoDetailsDao.getShipperCompanyName());
+                    address.setText(shipperInfoDetailsDao.getShipperAddress1());
+                    city.setText(shipperInfoDetailsDao.getShipperCity());
+                    state.setText(shipperInfoDetailsDao.getShipperState());
+                    zip.setText(shipperInfoDetailsDao.getShipperZipCode());
+                    country.setText(shipperInfoDetailsDao.getShipperCountry());
+
+                }
 
                 break;
 
             case R.id.tvConsigneeInfo:
 
-                separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
-                separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                if(shipmentData!=null) {
 
-                head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head3.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
-                head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
+                    separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                head1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_up,0);
-                head4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
+                    head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head3.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
+                    head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
 
-                shipmenentContent.setVisibility(View.GONE);
-                shipperContent.setVisibility(View.GONE);
-                consigneeContent.setVisibility(View.VISIBLE);
-                lineContent.setVisibility(View.GONE);
+                    head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
+                    head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
 
-                ConsigneeInfoDetailsDao consigneeInfoDetailsDao = shipmentData.getConsigneeInfoDetailsDaoList().get(0);
+                    shipmenentContent.setVisibility(View.GONE);
+                    shipperContent.setVisibility(View.GONE);
+                    consigneeContent.setVisibility(View.VISIBLE);
+                    lineContent.setVisibility(View.GONE);
 
-                consigncontactname.setText(consigneeInfoDetailsDao.getConsigneeContactName());
-                consigncompanyname.setText(consigneeInfoDetailsDao.getConsigneeCompanyName());
-                consignaddress.setText(consigneeInfoDetailsDao.getConsigneeAddress1());
-                consigncity.setText(consigneeInfoDetailsDao.getConsigneeCity());
-                consignstate.setText(consigneeInfoDetailsDao.getConsigneeState());
-                consignzip.setText(consigneeInfoDetailsDao.getConsigneeZipCode());
-                consigncountry.setText(consigneeInfoDetailsDao.getConsigneeCountry());
+                    ConsigneeInfoDetailsDao consigneeInfoDetailsDao = shipmentData.getConsigneeInfoDetailsDaoList().get(0);
+
+                    consigncontactname.setText(consigneeInfoDetailsDao.getConsigneeContactName());
+                    consigncompanyname.setText(consigneeInfoDetailsDao.getConsigneeCompanyName());
+                    consignaddress.setText(consigneeInfoDetailsDao.getConsigneeAddress1());
+                    consigncity.setText(consigneeInfoDetailsDao.getConsigneeCity());
+                    consignstate.setText(consigneeInfoDetailsDao.getConsigneeState());
+                    consignzip.setText(consigneeInfoDetailsDao.getConsigneeZipCode());
+                    consigncountry.setText(consigneeInfoDetailsDao.getConsigneeCountry());
+
+                }
 
                 break;
 
             case R.id.tvLineInfo:
 
-                separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
+                if(shipmentData!=null) {
 
-                head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                head4.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
+                    separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
 
-                head1.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head2.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head3.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
-                head4.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_up,0);
+                    head1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+                    head4.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
 
-                shipmenentContent.setVisibility(View.GONE);
-                shipperContent.setVisibility(View.GONE);
-                consigneeContent.setVisibility(View.GONE);
-                lineContent.setVisibility(View.VISIBLE);
+                    head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+                    head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
 
-                lineAdapter = new LineAdapter(ShipmentDetails.this,shipmentData.getLineItemsDaoList());
-                recyclerView.setAdapter(lineAdapter);
-                recyclerView.addItemDecoration(new DividerItemDecoration(ShipmentDetails.this,LinearLayoutManager.VERTICAL));
-                recyclerView.setHasFixedSize(true);
+                    shipmenentContent.setVisibility(View.GONE);
+                    shipperContent.setVisibility(View.GONE);
+                    consigneeContent.setVisibility(View.GONE);
+                    lineContent.setVisibility(View.VISIBLE);
+
+                    lineAdapter = new LineAdapter(ShipmentDetails.this, shipmentData.getLineItemsDaoList());
+                    recyclerView.setAdapter(lineAdapter);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(ShipmentDetails.this, LinearLayoutManager.VERTICAL));
+                    recyclerView.setHasFixedSize(true);
+
+                }
 
                 break;
 
