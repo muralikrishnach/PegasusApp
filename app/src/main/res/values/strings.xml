@@ -39,9 +39,8 @@
     <string name="lineinfo">"LINE ITEMS"</string>
 
 
-
     <string name="ambiguity">"POD SHIPMMENTS LAST 7 DAYS POD SHIPMMENTS LAST 7 DAYS POD SHIPMMENTS LAST 7 DAYS POD SHIPMMENTS LAST 7 DAYS"</string>
-
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

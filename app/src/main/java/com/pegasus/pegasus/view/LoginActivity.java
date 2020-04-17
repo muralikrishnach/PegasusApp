@@ -56,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         context = LoginActivity.this;
         setContentView(R.layout.activity_login);
 
+        checkRunTimePermission();
+
         editText_loginid = findViewById(R.id.etloginid);
         editText_password = findViewById(R.id.etpassword);
         btnLogin = findViewById(R.id.btnlogin);

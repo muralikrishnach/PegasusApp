@@ -8,7 +8,6 @@ import java.util.List;
 
 public class TitleParentData extends ExpandableGroup {
 
-
     public TitleParentData(String title, List items) {
         super(title, items);
     }

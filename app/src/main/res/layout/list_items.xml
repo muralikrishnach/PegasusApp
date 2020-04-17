@@ -77,7 +77,7 @@
                       android:paddingTop="@dimen/_4dp"
                       android:paddingBottom="@dimen/_4dp"
                       android:textSize="@dimen/activity_textsize"
-                      style="@style/TextAppearance.AppCompat.Small"/>
+                      style="@style/TextAppearance.AppCompat.Title"/>
 
 
               </LinearLayout>
