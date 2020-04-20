@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,17 +39,16 @@ import java.util.List;
 
 public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitleParentViewHolder, ChildParentViewHolder> {
 
-    public Context context;
+    private Context context;
     private List<? extends ExpandableGroup> headerName;
     private TrackingViewModel trackingViewModel;
+    private TrackingDetailsDao trackingDetailsDaodata;
 
 
     public OpenShipmentAdapter(Context context,List<? extends ExpandableGroup> groups) {
         super(groups);
         this.context = context;
         this.headerName = groups;
-
-        trackingViewModel = ViewModelProviders.of((FragmentActivity) context).get(TrackingViewModel.class);
     }
 
 
@@ -82,7 +83,7 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
         holder.imglocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String waybillno = "";
+                String waybillno;
                 if(group.getTitle().equalsIgnoreCase(JsonParsing.Head1)){
                     OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
                     waybillno = openShipmentsDao.getWaybillNumber();
@@ -90,10 +91,16 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
                     OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
                     waybillno = openShipmentsDao.getWaybillNumber();
                 }
+
+                Log.v("waybillno--","waybillno--"+waybillno);
+
+                trackingViewModel = ViewModelProviders.of((FragmentActivity) context).get(TrackingViewModel.class);
+
                 trackingViewModel.getTrackingLiveData(waybillno).observe((FragmentActivity)context, new Observer<TrackingDetailsDao>() {
                     @Override
                     public void onChanged(TrackingDetailsDao trackingDetailsDao) {
-                        if(trackingDetailsDao!=null){
+                        trackingDetailsDaodata = trackingDetailsDao;
+                        if(trackingDetailsDaodata!=null){
 
                             int size = trackingDetailsDao.getCoordinatesDaoList().size();
 
@@ -103,10 +110,8 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
                             /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+trackingDetailsDao.getCurrentLocationLatitude()+","+trackingDetailsDao.getCurrentLocationLongitude()+"&daddr="+deslatitude+","+deslangitude));
                             context.startActivity(intent);*/
                             Intent i = new Intent(context, MapsActivity.class);
-                            i.putExtra("Tracking",trackingDetailsDao);
+                            i.putExtra("Tracking",trackingDetailsDaodata);
                             context.startActivity(i);
-                        }else {
-
                         }
                     }
                 });
@@ -116,7 +121,7 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String waybillno = "";
+                String waybillno;
                 if(group.getTitle().equalsIgnoreCase(JsonParsing.Head1)){
                     OpenShipmentsDao openShipmentsDao = (OpenShipmentsDao)childData;
                     waybillno = openShipmentsDao.getWaybillNumber();
@@ -132,12 +137,10 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
             }
         });
 
-
-
     }
 
     @Override
-    public void onBindGroupViewHolder(TitleParentViewHolder holder, int flatPosition, ExpandableGroup group) {
+    public void onBindGroupViewHolder(TitleParentViewHolder holder, final int flatPosition, ExpandableGroup group) {
         holder.setGroupName(group);
     }
 
