@@ -97,6 +97,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:visibility="gone"
                 android:id="@+id/btndocument"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,10 +109,9 @@
                 android:id="@+id/btnLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/locationimg"
+                android:src="@drawable/location"
                 android:backgroundTint="@color/whitee"
-                android:layout_gravity="center"
-                >
+                android:layout_gravity="center">
 
             </androidx.appcompat.widget.AppCompatImageButton>
 

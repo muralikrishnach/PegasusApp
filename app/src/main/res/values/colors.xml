@@ -12,6 +12,10 @@
     <color name="skyblue">#00ccff</color>
 
 
+    <color name="loginbtn">#2384c5</color>
+
+
+
     <color name="darkblue">#0000A0</color>
 
     <color name="aegean">#1F456E</color>
@@ -23,7 +27,7 @@
     <color name="darkgrey">#BDBDBD</color>
     <color name="thickgrey">#757575</color>
 
-    <color name="transparent">#6A7A80</color>
+    <color name="transparent">#99FFFFFF</color>
 
 
     <color name="red">#FF0266</color>

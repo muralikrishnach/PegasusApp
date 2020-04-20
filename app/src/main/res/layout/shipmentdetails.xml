@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardView.Light"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_8dp"
-    android:layout_marginBottom="@dimen/_8dp"
-    android:layout_marginStart="@dimen/_8dp"
-    android:layout_marginEnd="@dimen/_8dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_12dp"
+        android:layout_marginBottom="@dimen/_12dp"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp">
 
         <LinearLayout
             style="@style/horizantallayout"
@@ -150,6 +150,29 @@
 
 
         </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvmapsclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/maps"
+            android:drawablePadding="2dp"
+            android:paddingEnd="@dimen/_12dp"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:text="@string/viewmaps"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/cerulean">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 

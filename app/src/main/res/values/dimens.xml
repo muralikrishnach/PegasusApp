@@ -9,6 +9,7 @@
     <dimen name="activity_headsize">18sp</dimen>
     <dimen name="_4dp">4dp</dimen>
     <dimen name="_8dp">8dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
 
     <dimen name="_16dp">48dp</dimen>
 
