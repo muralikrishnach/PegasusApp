@@ -6,14 +6,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,6 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -32,6 +43,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.LoginDao;
 import com.pegasus.pegasus.model.LoginValidations;
+import com.pegasus.pegasus.view.viewholders.ScreenNames;
 import com.pegasus.pegasus.viewmodel.LoginViewModel;
 
 import org.json.JSONException;
@@ -43,29 +55,69 @@ import okhttp3.RequestBody;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ConstraintLayout layout;
     TextInputEditText editText_loginid,editText_password;
     AppCompatButton btnLogin;
     private Context context;
 
+    private AppCompatCheckBox checkrember;
+
     private LoginViewModel viewModel;
     private MutableLiveData<LoginValidations> userdata;
+
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = LoginActivity.this;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         checkRunTimePermission();
 
+        layout = findViewById(R.id.container);
         editText_loginid = findViewById(R.id.etloginid);
         editText_password = findViewById(R.id.etpassword);
         btnLogin = findViewById(R.id.btnlogin);
+        checkrember = findViewById(R.id.checkRemeber);
 
         viewModel = ViewModelProviders.of(LoginActivity.this).get(LoginViewModel.class);
         viewModel.setContext(LoginActivity.this);
         btnLogin.setOnClickListener(this);
 
+
+
+        Bitmap backgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.login_bg);
+        BitmapDrawable backgroundDrawable = new BitmapDrawable(getResources(), backgroundBitmap);
+        backgroundDrawable.setGravity(Gravity.CENTER);
+        layout.setBackground(backgroundDrawable);
+
+        loginPreferences = getSharedPreferences(ScreenNames.MyPREFERENCES,Context.MODE_PRIVATE);
+
+
+        editText_loginid.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String username = loginPreferences.getString(ScreenNames.Name, null);
+                String password = loginPreferences.getString(ScreenNames.Pass, null);
+                if(username!=null && !username.isEmpty() && username.equalsIgnoreCase(editText_loginid.getText().toString().trim())){
+                    editText_password.setText(password);
+                }
+            }
+        });
     }
 
     @Override
@@ -76,8 +128,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnlogin:
 
                 LoginValidations data = new LoginValidations();
-                data.setUserName(editText_loginid.getText().toString().trim());
-                data.setPassword(editText_password.getText().toString().trim());
+                final String Name = editText_loginid.getText().toString().trim();
+                final String PWD  = editText_password.getText().toString().trim();
+                data.setUserName(Name);
+                data.setPassword(PWD);
                 viewModel.setUserdata(data);
 
                 final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, ProgressDialog.THEME_HOLO_DARK);
@@ -102,6 +156,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+
+                                        if(checkrember.isChecked()) {
+                                            loginPreferences = getSharedPreferences(ScreenNames.MyPREFERENCES, Context.MODE_PRIVATE);
+                                            loginPrefsEditor = loginPreferences.edit();
+                                            loginPrefsEditor.clear();
+                                            loginPrefsEditor.apply();
+
+                                            loginPrefsEditor = loginPreferences.edit();
+
+                                            loginPrefsEditor.putString(ScreenNames.Name, Name);
+                                            loginPrefsEditor.putString(ScreenNames.Pass, PWD);
+                                            loginPrefsEditor.apply();
+                                        }
+
                                         Intent i = new Intent(LoginActivity.this,OpenShipmentActivity.class);
                                         i.putExtra("BillNo",response.getDataDao().getBillNo());
                                         startActivity(i);
