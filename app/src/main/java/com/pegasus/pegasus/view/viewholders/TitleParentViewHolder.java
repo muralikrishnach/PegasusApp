@@ -1,6 +1,8 @@
 package com.pegasus.pegasus.view.viewholders;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,13 +11,14 @@ import androidx.core.content.ContextCompat;
 
 
 import com.pegasus.pegasus.R;
+import com.pegasus.pegasus.model.repository.JsonParsing;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 public class TitleParentViewHolder extends GroupViewHolder {
 
-    private AppCompatTextView textHeader;
-    private AppCompatButton lineseparator;
+    public AppCompatTextView textHeader;
+    public AppCompatButton lineseparator;
 
     public TitleParentViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -40,7 +43,7 @@ public class TitleParentViewHolder extends GroupViewHolder {
         lineseparator.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.yellow));
     }
 
-    public void setGroupName(ExpandableGroup groupName){
+    public void setGroupName(final ExpandableGroup groupName){
         textHeader.setText(groupName.getTitle());
     }
 
