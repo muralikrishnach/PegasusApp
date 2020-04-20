@@ -2,6 +2,7 @@ package com.pegasus.pegasus.view;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.Gap;
@@ -31,6 +34,7 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.appbar.AppBarLayout;
 import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.CoordinatesDao;
 import com.pegasus.pegasus.model.TrackingDetailsDao;
@@ -57,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng mOrigin;
     private LatLng mDestination;
     private Polyline mPolyline;
-//    ArrayList<LatLng> mMarkerPoints;
+    ArrayList<LatLng> mMarkerPoints;
 
 
     private static final int PATTERN_GAP_LENGTH_PX = 10;  // 1
@@ -93,11 +97,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         });
+
         imgPower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this);
-                alert.setMessage("Are you sure you want to LogOut?");
+                alert.setMessage("Are you sure you want to Logout?");
                 alert.setCancelable(false);
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -122,9 +127,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync(this);
 
-
-
-//        mMarkerPoints = new ArrayList<>();
     }
 
     @Override
@@ -135,17 +137,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        googleMap.clear();
+        mMap.clear();
 
         MarkerOptions options;
         PolylineOptions polylineOptions = new PolylineOptions();
+
+        CircleOptions circleOptions = new CircleOptions();
 
         options = new MarkerOptions();
         double lat1 = Double.parseDouble(trackingDetailsDao.getCurrentLocationLatitude());
         double lang1 = Double.parseDouble(trackingDetailsDao.getCurrentLocationLongitude());
         LatLng latLng = new LatLng(lat1,lang1);
         options.position(latLng);
-        options.title("Source");
+//        options.title("Source");
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         polylineOptions.add(latLng);
         mMap.addMarker(options);
@@ -161,28 +165,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             mMap.addMarker(options);
             polylineOptions.add(position);
+            circleOptions.center(position);
         }
         double destLat = Double.parseDouble(trackingDetailsDao.getCoordinatesDaoList().get(0).getLatitude());
         double destLong = Double.parseDouble(trackingDetailsDao.getCoordinatesDaoList().get(0).getLongitude());
         LatLng destLatLng = new LatLng(destLat,destLong);
         options.position(destLatLng);
-        options.title("Destination");
+//        options.title("Destination");
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         mMap.addMarker(options);
-        polylineOptions.add(destLatLng);
+//        polylineOptions.add(destLatLng);
 
 
        mMap.addPolyline(polylineOptions
                 .clickable(true)
-                .color((Color.GREEN))
-                .width(16));
+//                .color((Color.BLUE))
+                .color(getResources().getColor(R.color.header))
+                .width(8))
+                .setJointType(JointType.ROUND);
 
-        mMap.addCircle(new CircleOptions()
+       mMap.addCircle(circleOptions
+               .radius(1000)
+               .strokeWidth(10)
+               .strokeColor(Color.RED)
+               .fillColor(Color.argb(128, 255, 0, 0))
+               .clickable(true));
+
+
+        /*mMap.addCircle(new CircleOptions()
                                 .center(latLng)
                                 .strokeColor(Color.RED)
                                 .strokeWidth(3f)
                                 .fillColor(Color.argb(70,150,50,50))
-                                .radius(400.0));
+                                .radius(400.0));*/
 
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
@@ -191,19 +206,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        // Position the map's camera near Alice Springs in the center of Australia,
-        // and set the zoom factor so most of Australia shows on the screen.
+        mMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
+            @Override
+            public void onCircleClick(Circle circle) {
+                int strokeColor = circle.getStrokeColor() ^ 0x00ffffff;
+                circle.setStrokeColor(strokeColor);
+            }
+        });
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat1,lang1), 4));
 
 
 
         // Checks, whether start and end locations are captured
-        /*if(mMarkerPoints.size() >= 2){
-            mOrigin = mMarkerPoints.get(0);
-            mDestination = mMarkerPoints.get(1);
-            drawRoute();
-        }*/
+//        if(mMarkerPoints.size() >= 2){
+           /* mOrigin = mMarkerPoints.get(0);
+            mDestination = mMarkerPoints.get(1);*/
+//            drawRoute();
+//        }
 
 
     }
@@ -274,7 +294,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String key = "key=" + getString(R.string.google_maps_key);
 
         // Building the parameters to the web service
-        String parameters = str_origin+"&amp;"+str_dest+"&amp;"+key;
+        String parameters = str_origin+"&"+str_dest+"&"+key;
 
         // Output format
         String output = "json";
@@ -393,28 +413,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             PolylineOptions lineOptions = null;
 
             // Traversing through all the routes
-            for(int i=0;i<result.size();i++){
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
+            if(result!=null) {
+                for (int i = 0; i < result.size(); i++) {
+                    points = new ArrayList<LatLng>();
+                    lineOptions = new PolylineOptions();
 
-                // Fetching i-th route
-                List<HashMap<String, String>> path = result.get(i);
+                    // Fetching i-th route
+                    List<HashMap<String, String>> path = result.get(i);
 
-                // Fetching all the points in i-th route
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
+                    // Fetching all the points in i-th route
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
 
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
 
-                    points.add(position);
+                        points.add(position);
+                    }
+
+                    // Adding all the points in the route to LineOptions
+                    lineOptions.addAll(points);
+                    lineOptions.width(8);
+                    lineOptions.color(Color.RED);
                 }
 
-                // Adding all the points in the route to LineOptions
-                lineOptions.addAll(points);
-                lineOptions.width(8);
-                lineOptions.color(Color.RED);
             }
 
             // Drawing polyline in the Google Map for the i-th route

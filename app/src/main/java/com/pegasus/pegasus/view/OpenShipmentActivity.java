@@ -95,7 +95,7 @@ public class OpenShipmentActivity extends AppCompatActivity implements View.OnCl
             case R.id.imgLogout:
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(OpenShipmentActivity.this);
-                alert.setMessage("Are you sure you want to LogOut?");
+                alert.setMessage("Are you sure you want to Logout?");
                 alert.setCancelable(false);
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override

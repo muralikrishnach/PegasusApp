@@ -2,6 +2,8 @@ package com.pegasus.pegasus.view;
 
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -16,6 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -27,11 +31,17 @@ import com.pegasus.pegasus.model.ConsigneeInfoDetailsDao;
 import com.pegasus.pegasus.model.ShipmentDataDao;
 import com.pegasus.pegasus.model.ShipmentInfoDetailsDao;
 import com.pegasus.pegasus.model.ShipperInfoDetailsDao;
+import com.pegasus.pegasus.model.TrackingDetailsDao;
 import com.pegasus.pegasus.view.adapters.LineAdapter;
 import com.pegasus.pegasus.viewmodel.ShipmentDetailsViewModel;
+import com.pegasus.pegasus.viewmodel.TrackingViewModel;
 
 
 public class ShipmentDetails extends AppCompatActivity implements View.OnClickListener {
+
+    private TrackingViewModel trackingViewModel;
+    TrackingDetailsDao trackingDetailsDaodata;
+
 
     private AppCompatImageButton imgback,imgPower;
 
@@ -40,7 +50,7 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
     private AppCompatButton separator1,separator2,separator3,separator4;
 
     private CardView shipmenentContent,shipperContent,consigneeContent;
-    private AppCompatTextView waybill,pickupdate,eta,deliverydate,currentstatus;
+    private AppCompatTextView waybill,pickupdate,eta,deliverydate,currentstatus,tvmaps;
     private AppCompatTextView contactname,companyname,address,city,state,zip,country;
     private AppCompatTextView consigncontactname,consigncompanyname,consignaddress,consigncity,consignstate,consignzip,consigncountry;
     private LinearLayout llScroll,lineContent;
@@ -77,6 +87,9 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onChanged(ShipmentDataDao shipmentDataDao) {
                 shipmentData = shipmentDataDao;
+                if(shipmentData!=null) {
+                    shipmentDetailsView();
+                }
             }
         });
 
@@ -105,6 +118,8 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         consigneeContent = findViewById(R.id.consigneecontent);
         lineContent = findViewById(R.id.llLineContent);
 
+
+        tvmaps = findViewById(R.id.tvmapsclick);
         waybill = findViewById(R.id.tvwaybillno);
         pickupdate = findViewById(R.id.tvpickupdate);
         eta    = findViewById(R.id.tveta);
@@ -139,6 +154,39 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         head2.setOnClickListener(this);
         head3.setOnClickListener(this);
         head4.setOnClickListener(this);
+        tvmaps.setOnClickListener(this);
+
+    }
+
+    private void shipmentDetailsView() {
+
+        separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
+        separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+        separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+        separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+
+        head1.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
+        head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+        head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+        head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
+
+        head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
+        head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+        head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+        head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
+
+        shipmenentContent.setVisibility(View.VISIBLE);
+        shipperContent.setVisibility(View.GONE);
+        consigneeContent.setVisibility(View.GONE);
+        lineContent.setVisibility(View.GONE);
+
+        ShipmentInfoDetailsDao shipmentInfoDetailsDao = shipmentData.getShipmentInfoDetailsDaoList().get(0);
+
+        waybill.setText(shipmentInfoDetailsDao.getWaybillNumber());
+        pickupdate.setText(shipmentInfoDetailsDao.getPickupDateTime());
+        eta.setText(shipmentInfoDetailsDao.getETADateTime());
+        deliverydate.setText(shipmentInfoDetailsDao.getPODDateTime());
+        currentstatus.setText(shipmentInfoDetailsDao.getStatus());
 
     }
 
@@ -149,35 +197,7 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
             case R.id.tvShipmentInfo:
 
                 if(shipmentData!=null) {
-
-                    separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
-                    separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                    separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                    separator4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-
-                    head1.setBackgroundColor(ContextCompat.getColor(this, R.color.aegean));
-                    head2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                    head3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-                    head4.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
-
-                    head1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
-                    head2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
-                    head3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
-                    head4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
-
-                    shipmenentContent.setVisibility(View.VISIBLE);
-                    shipperContent.setVisibility(View.GONE);
-                    consigneeContent.setVisibility(View.GONE);
-                    lineContent.setVisibility(View.GONE);
-
-                    ShipmentInfoDetailsDao shipmentInfoDetailsDao = shipmentData.getShipmentInfoDetailsDaoList().get(0);
-
-                    waybill.setText(shipmentInfoDetailsDao.getWaybillNumber());
-                    pickupdate.setText(shipmentInfoDetailsDao.getPickupDateTime());
-                    eta.setText(shipmentInfoDetailsDao.getETADateTime());
-                    deliverydate.setText(shipmentInfoDetailsDao.getPODDateTime());
-                    currentstatus.setText(shipmentInfoDetailsDao.getStatus());
-
+                    shipmentDetailsView();
                 }
 
 
@@ -295,6 +315,60 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
             case R.id.imgBack:
 
                 finish();
+
+                break;
+
+            case R.id.imgLogout:
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(ShipmentDetails.this);
+                alert.setMessage("Are you sure you want to Logout?");
+                alert.setCancelable(false);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(ShipmentDetails.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+
+
+                break;
+
+
+            case R.id.tvmapsclick:
+
+                trackingViewModel = ViewModelProviders.of(this).get(TrackingViewModel.class);
+
+                trackingViewModel.getTrackingLiveData(WayBillNo).observe(this, new Observer<TrackingDetailsDao>() {
+                    @Override
+                    public void onChanged(TrackingDetailsDao trackingDetailsDao) {
+                        trackingDetailsDaodata = trackingDetailsDao;
+                        if(trackingDetailsDaodata!=null){
+
+                            int size = trackingDetailsDao.getCoordinatesDaoList().size();
+
+                            String deslatitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLatitude();
+                            String deslangitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLongitude();
+
+                            /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+trackingDetailsDao.getCurrentLocationLatitude()+","+trackingDetailsDao.getCurrentLocationLongitude()+"&daddr="+deslatitude+","+deslangitude));
+                            context.startActivity(intent);*/
+                            Intent i = new Intent(ShipmentDetails.this, MapsActivity.class);
+                            i.putExtra("Tracking",trackingDetailsDaodata);
+                            startActivity(i);
+                        }
+                    }
+                });
 
                 break;
 
