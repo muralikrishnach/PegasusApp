@@ -35,11 +35,10 @@ public class LoginViewModel extends ViewModel {
 
     public MutableLiveData<LoginDao> checkLogin() {
 
-        if (loginResponse == null) {
             loginResponse = new MutableLiveData<LoginDao>();
 
             checkLoginResponse();
-        }
+
         return loginResponse;
     }
 

@@ -23,12 +23,11 @@ public class TrackingViewModel extends ViewModel {
 
 
     public MutableLiveData<TrackingDetailsDao> getTrackingLiveData(String WayBillNo){
-        if(trackingLiveData==null){
 
             trackingLiveData = new MutableLiveData<TrackingDetailsDao>();
 
             getTrackingDetails(WayBillNo);
-        }
+
         return trackingLiveData;
     }
 
