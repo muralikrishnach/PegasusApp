@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PegasusApp.iml" filepath="$PROJECT_DIR$/PegasusApp.iml" group="PegasusApp" />
+      <module fileurl="file://$PROJECT_DIR$/app/PegasusApp-app.iml" filepath="$PROJECT_DIR$/app/PegasusApp-app.iml" group="PegasusApp/app" />
+      <module fileurl="file://$PROJECT_DIR$/RAJA-PegasusApp.iml" filepath="$PROJECT_DIR$/RAJA-PegasusApp.iml" group="PegasusApp" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="PegasusApp/app" />
     </modules>
   </component>

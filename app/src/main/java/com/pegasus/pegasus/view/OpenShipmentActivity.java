@@ -80,7 +80,7 @@ public class OpenShipmentActivity extends AppCompatActivity implements View.OnCl
                     recyclerView.setAdapter(myAdapter);
                     recyclerView.addItemDecoration(new DividerItemDecoration(OpenShipmentActivity.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setHasFixedSize(true);
-
+                    myAdapter.toggleGroup(0);
                 }
             }
         });

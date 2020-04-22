@@ -28,7 +28,7 @@ import com.pegasus.pegasus.viewmodel.ShipmentDetailsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShipmentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShipmentDetailsActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
     private AppCompatTextView title;
@@ -54,16 +54,16 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
         }
 
 
-        toolbar = findViewById(R.id.toolbar_widget);
+       /* toolbar = findViewById(R.id.toolbar_widget);
 
 
 
         recyclerView = findViewById(R.id.recyclerView);
         title = findViewById(R.id.tvtitle);
         imgback = findViewById(R.id.imgBack);
-        imgPower = findViewById(R.id.imgLogout);
+        imgPower = findViewById(R.id.imgLogout);*/
 
-        imgback.setVisibility(View.VISIBLE);
+        /*imgback.setVisibility(View.VISIBLE);
         imgPower.setVisibility(View.GONE);
 
         imgback.setOnClickListener(this);
@@ -88,17 +88,14 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
                 recyclerView.addItemDecoration(new DividerItemDecoration(ShipmentDetailsActivity.this, LinearLayoutManager.VERTICAL));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(myAdapter);
-
-
-
             }
-        });
+        });*/
 
 
     }
 
-    @Override
-    public void onClick(View v) {
+//    @Override
+    /*public void onClick(View v) {
         switch (v.getId()){
             case R.id.imgBack:
 
@@ -106,5 +103,5 @@ public class ShipmentDetailsActivity extends AppCompatActivity implements View.O
 
                 break;
         }
-    }
+    }*/
 }

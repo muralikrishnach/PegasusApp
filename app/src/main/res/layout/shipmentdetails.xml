@@ -160,7 +160,7 @@
             android:id="@+id/tvmapsclick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/maps"
+            android:drawableStart="@drawable/maps"
             android:drawablePadding="2dp"
             android:paddingEnd="@dimen/_12dp"
             android:gravity="center"

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_widget"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/whitee"
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    tools:ignore="MissingConstraints">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/whitee"
+            android:src="@drawable/home" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:backgroundTint="@color/whitee"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/innerlogo" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/imgLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/whitee"
+            android:src="@drawable/power"
+            android:textAlignment="viewEnd" />
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>
+

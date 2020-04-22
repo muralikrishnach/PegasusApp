@@ -1,70 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/_8dp"
-    android:paddingBottom="@dimen/_8dp"
-    android:paddingStart="@dimen/_8dp"
-    android:paddingEnd="@dimen/_8dp"
+    android:background="#e4f1f9"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:background="@color/whitee">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_widget"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/imgBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/home"
-                android:backgroundTintMode="@color/whitee"/>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/tvtitle"
-                android:layout_width="240dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_8dp"
-                android:backgroundTintMode="@color/whitee"
-                android:gravity="center"
-                android:src="@drawable/innerlogo" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/imgLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/power"
-                android:backgroundTintMode="@color/whitee"/>
-
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </LinearLayout>
-
+    <include layout="@layout/layout_page_header"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/_8dp"
-        android:paddingEnd="@dimen/_8dp"
+        android:padding="@dimen/_8dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/_8dp">
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/shipmentid"
@@ -74,15 +28,12 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvShipmentInfo"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/_16dp"
-                android:paddingTop="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:paddingBottom="@dimen/_8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
                 android:text="@string/shipmentinfo"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_textsize"
@@ -90,8 +41,12 @@
 
         </LinearLayout>
 
-        <View
+        <!--<View
             style="@style/SeperatorGrayhorizantal"
+            android:layout_width="1dp" />-->
+        <View
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <include
@@ -102,12 +57,13 @@
             android:visibility="gone" />
 
         <View
-            style="@style/SeperatorGrayhorizantal"
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -118,15 +74,12 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvShipperInfo"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
-                android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/_16dp"
-                android:paddingTop="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:paddingBottom="@dimen/_8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
                 android:text="@string/shipperinfo"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_textsize"
@@ -135,7 +88,8 @@
         </LinearLayout>
 
         <View
-            style="@style/SeperatorGrayhorizantal"
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <include
@@ -146,12 +100,13 @@
             android:visibility="gone" />
 
         <View
-            style="@style/SeperatorGrayhorizantal"
-            android:layout_width="10dp" />
+            android:layout_height="4dp"
+            android:background="@color/transparent"
+            android:layout_width="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -162,15 +117,13 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvConsigneeInfo"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
                 android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/_16dp"
-                android:paddingTop="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:paddingBottom="@dimen/_8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
                 android:text="@string/consigneeinfo"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_textsize"
@@ -179,7 +132,8 @@
         </LinearLayout>
 
         <View
-            style="@style/SeperatorGrayhorizantal"
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <include
@@ -190,12 +144,13 @@
             android:visibility="gone" />
 
         <View
-            style="@style/SeperatorGrayhorizantal"
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -207,15 +162,13 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvLineInfo"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:background="@color/header"
                 android:drawableEnd="@drawable/arrow_down"
                 android:drawableTint="@color/whitee"
                 android:gravity="center_vertical"
-                android:paddingStart="@dimen/_16dp"
-                android:paddingTop="@dimen/_8dp"
-                android:paddingEnd="@dimen/_8dp"
-                android:paddingBottom="@dimen/_8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
                 android:text="@string/lineinfo"
                 android:textColor="@color/white"
                 android:textSize="@dimen/activity_textsize"
@@ -224,7 +177,8 @@
         </LinearLayout>
 
         <View
-            style="@style/SeperatorGrayhorizantal"
+            android:layout_height="4dp"
+            android:background="@color/transparent"
             android:layout_width="1dp" />
 
         <LinearLayout
@@ -280,8 +234,6 @@
                 android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
-
-
 
         </LinearLayout>
 
