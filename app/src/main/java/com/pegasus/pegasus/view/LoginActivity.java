@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = LoginActivity.this;
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         checkRunTimePermission();
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void afterTextChanged(Editable s) {
                 String username = loginPreferences.getString(ScreenNames.Name, null);
                 String password = loginPreferences.getString(ScreenNames.Pass, null);
-                if(username!=null && !username.isEmpty() && username.equalsIgnoreCase(editText_loginid.getText().toString().trim())){
+                if(username!=null && !username.isEmpty() && username.equals(editText_loginid.getText().toString().trim())){
                     editText_password.setText(password);
                 }
             }

@@ -45,6 +45,8 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
     private TrackingDetailsDao trackingDetailsDaodata;
 
 
+    int selectedPosition=-1;
+
     public OpenShipmentAdapter(Context context,List<? extends ExpandableGroup> groups) {
         super(groups);
         this.context = context;
@@ -143,6 +145,5 @@ public class OpenShipmentAdapter extends ExpandableRecyclerViewAdapter<TitlePare
     public void onBindGroupViewHolder(TitleParentViewHolder holder, final int flatPosition, ExpandableGroup group) {
         holder.setGroupName(group);
     }
-
 
 }

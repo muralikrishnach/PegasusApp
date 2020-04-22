@@ -1,5 +1,6 @@
 package com.pegasus.pegasus.view.viewholders;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class TitleParentViewHolder extends GroupViewHolder {
         super.expand();
         textHeader.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.arrow_down,0);
         textHeader.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.header));
-        lineseparator.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.header));
+        lineseparator.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.cerulean));
     }
 
     @Override
