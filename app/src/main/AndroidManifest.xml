@@ -51,7 +51,7 @@
 
 
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionAndStatusBar"
             android:exported="true">
@@ -61,6 +61,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.LoginActivity"
+            android:theme="@style/AppTheme.NoActionAndStatusBar"
+            android:exported="true"/>
         <activity android:name=".view.OpenShipmentActivity"
             android:exported="true"/>
         <activity android:name=".view.ShipmentDetailsActivity"

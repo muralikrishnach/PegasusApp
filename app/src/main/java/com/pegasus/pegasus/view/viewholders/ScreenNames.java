@@ -10,6 +10,7 @@ public class ScreenNames {
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Name = "username";
     public static final String Pass = "password";
+    public static final String UserBillNo = "UserBillNo";
 
 
 }

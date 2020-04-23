@@ -43,35 +43,16 @@ public class MapsHelper {
         return data;
     }
 
-    public static String GetDirectionsUrl(List<CoordinatesDao> coordinates) {
-        int currentIndex = 0;
-        int lastIndex = coordinates.size() - 1;
-        String str_origin = null;
-        String str_dest = null;
-        StringBuilder str_waypoints = new StringBuilder("waypoints=");
-        for (CoordinatesDao coordinate : coordinates) {
-            if (currentIndex == 0) {
-                // Origin of route
-                str_origin = "origin=" + coordinate.getLatitude() + "," + coordinate.getLongitude();
-            } else if (currentIndex == lastIndex) {
-                // Destination of route
-                str_dest = "destination=" + coordinate.getLatitude() + "," + coordinate.getLongitude();
-            } else {
-                // Waypoints
-                str_waypoints.append(coordinate.getLatitude()).append(",").append(coordinate.getLongitude()).append("|");
-            }
-            currentIndex++;
-        }
-
-        // Sensor enabled
-        String sensor = "sensor=false";
+    public static String GetDirectionsUrl(List<CoordinatesDao> coordinates, String mapsKey) {
+        CoordinatesDao coordinate = coordinates.get(0);
+        String str_origin = "origin=" + coordinate.getLatitude() + "," + coordinate.getLongitude();
+        coordinate = coordinates.get(coordinates.size() - 1);
+        String str_dest = "destination=" + coordinate.getLatitude() + "," + coordinate.getLongitude();
 
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + str_waypoints;
-        // Output format
-        String output = "json";
+        String parameters = str_origin + "&" + str_dest + "&" + "sensor=false&mode=driving";
+
         // Building the url to the web service
-        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters
-                + "&key=" + "AIzaSyDXn3Ln9cmvhhMaL1HciFo9LsEq23PoYks";
+        return "https://maps.googleapis.com/maps/api/directions/json" + "?" + parameters + "&key=" + mapsKey;
     }
 }

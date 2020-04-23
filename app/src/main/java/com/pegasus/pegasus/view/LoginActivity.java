@@ -8,16 +8,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -27,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -36,6 +31,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.pegasus.pegasus.R;
 import com.pegasus.pegasus.model.LoginDao;
 import com.pegasus.pegasus.model.LoginValidations;
+import com.pegasus.pegasus.util.Session;
 import com.pegasus.pegasus.view.viewholders.ScreenNames;
 import com.pegasus.pegasus.viewmodel.LoginViewModel;
 
@@ -43,7 +39,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextInputEditText editText_loginid,editText_password;
+    TextInputEditText editText_loginid, editText_password;
     AppCompatButton btnLogin;
     private Context context;
 
@@ -75,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         viewModel = ViewModelProviders.of(LoginActivity.this).get(LoginViewModel.class);
         viewModel.setContext(LoginActivity.this);
         btnLogin.setOnClickListener(this);
-        loginPreferences = getSharedPreferences(ScreenNames.MyPREFERENCES,Context.MODE_PRIVATE);
+        loginPreferences = getSharedPreferences(ScreenNames.MyPREFERENCES, Context.MODE_PRIVATE);
         editText_loginid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void afterTextChanged(Editable s) {
                 String username = loginPreferences.getString(ScreenNames.Name, null);
                 String password = loginPreferences.getString(ScreenNames.Pass, null);
-                if(username!=null && !username.isEmpty() && username.equals(Objects.requireNonNull(editText_loginid.getText()).toString().trim())){
+                if (username != null && !username.isEmpty() && username.equals(Objects.requireNonNull(editText_loginid.getText()).toString().trim())) {
                     editText_password.setText(password);
                 }
             }
@@ -118,40 +114,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             viewModel.checkLogin().observe(this, new Observer<LoginDao>() {
                 @Override
                 public void onChanged(LoginDao loginDataDo) {
-                    final LoginDao response = loginDataDo;
-                    if (response != null) {
+                    btnLogin.setEnabled(true);
+                    if (loginDataDo != null) {
                         progressDialog.dismiss();
-                        btnLogin.setEnabled(true);
-                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                        if (response.isStatus()) {
-                            alert.setMessage("Login Successfully");
+                        //AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                        if (loginDataDo.isStatus()) {
+                           /* alert.setMessage("Login Successfully");
                             alert.setCancelable(false);
                             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
+                                    dialog.dismiss();*/
 
-                                    if (checkrember.isChecked()) {
-                                        loginPreferences = getSharedPreferences(ScreenNames.MyPREFERENCES, Context.MODE_PRIVATE);
-                                        loginPrefsEditor = loginPreferences.edit();
-                                        loginPrefsEditor.clear();
-                                        loginPrefsEditor.apply();
+                            if (checkrember.isChecked()) {
+                                Session.SaveSession(context, Name, PWD, loginDataDo.getDataDao().getBillNo());
+                            }
 
-                                        loginPrefsEditor = loginPreferences.edit();
-
-                                        loginPrefsEditor.putString(ScreenNames.Name, Name);
-                                        loginPrefsEditor.putString(ScreenNames.Pass, PWD);
-                                        loginPrefsEditor.apply();
-                                    }
-
-                                    Intent i = new Intent(LoginActivity.this, OpenShipmentActivity.class);
-                                    i.putExtra("BillNo", response.getDataDao().getBillNo());
-                                    startActivity(i);
-                                }
+                            Intent i = new Intent(LoginActivity.this, OpenShipmentActivity.class);
+                            i.putExtra("BillNo", loginDataDo.getDataDao().getBillNo());
+                            startActivity(i);
+                           /*     }
                             });
-                            alert.show();
+                            alert.show();*/
 
-                        } else {
+                        }
+                        /*else {
                             alert.setMessage("Login Failed");
                             alert.setCancelable(false);
                             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -162,9 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             });
                             alert.show();
 
-                        }
-                    } else {
-                        btnLogin.setEnabled(true);
+                        }*/
                     }
                 }
             });
@@ -176,9 +161,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_BACKGROUND_LOCATION},
-                                10);
-                    }
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION},
+                        10);
+            }
         }
     }
 
@@ -219,9 +204,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                         ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 10);
-                        }
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 10);
+                }
             }
         }
     }

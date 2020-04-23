@@ -1,11 +1,8 @@
 package com.pegasus.pegasus.view;
 
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +16,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -36,53 +32,35 @@ import com.pegasus.pegasus.view.adapters.LineAdapter;
 import com.pegasus.pegasus.viewmodel.ShipmentDetailsViewModel;
 import com.pegasus.pegasus.viewmodel.TrackingViewModel;
 
-
 public class ShipmentDetails extends AppCompatActivity implements View.OnClickListener {
-
     private TrackingViewModel trackingViewModel;
     TrackingDetailsDao trackingDetailsDaodata;
-
-
     private AppCompatImageButton imgback,imgPower;
-
     private AppCompatTextView head1,head2,head3,head4;
-
     private AppCompatButton separator1,separator2,separator3,separator4;
-
     private CardView shipmenentContent,shipperContent,consigneeContent;
     private AppCompatTextView waybill,pickupdate,eta,deliverydate,currentstatus,tvmaps;
     private AppCompatTextView contactname,companyname,address,city,state,zip,country;
     private AppCompatTextView consigncontactname,consigncompanyname,consignaddress,consigncity,consignstate,consignzip,consigncountry;
     private LinearLayout llScroll,lineContent;
-
     private RecyclerView recyclerView;
-
     LineAdapter lineAdapter;
-
     LayoutInflater inflater;
-
     private ShipmentDetailsViewModel shipmentDetailsViewModel;
-
     ShipmentDataDao shipmentData;
     private Toolbar toolbar;
-
     String WayBillNo = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailscontainer);
-
         inflater = getLayoutInflater();
-
         if(getIntent().getExtras()!=null){
             WayBillNo = getIntent().getExtras().getString("WayBillNo");
         }
-
         bindingViews();
-
         shipmentDetailsViewModel = ViewModelProviders.of(this).get(ShipmentDetailsViewModel.class);
-
         shipmentDetailsViewModel.getShipmentsData(WayBillNo).observe(this, new Observer<ShipmentDataDao>() {
             @Override
             public void onChanged(ShipmentDataDao shipmentDataDao) {
@@ -92,21 +70,17 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
-
     }
 
     private void bindingViews() {
-
         toolbar = findViewById(R.id.toolbar_widget);
         imgback = findViewById(R.id.imgBack);
         imgPower = findViewById(R.id.imgLogout);
-
 
         separator1 = findViewById(R.id.shipmentid);
         separator2 = findViewById(R.id.shipperid);
         separator3 = findViewById(R.id.consigneeseparate);
         separator4 = findViewById(R.id.lineseparate);
-
 
         head1 = findViewById(R.id.tvShipmentInfo);
         head2 = findViewById(R.id.tvShipperInfo);
@@ -117,7 +91,6 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         shipperContent = findViewById(R.id.shippercontent);
         consigneeContent = findViewById(R.id.consigneecontent);
         lineContent = findViewById(R.id.llLineContent);
-
 
         tvmaps = findViewById(R.id.tvmapsclick);
         waybill = findViewById(R.id.tvwaybillno);
@@ -143,10 +116,7 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(ShipmentDetails.this));
 
-
-
         setSupportActionBar(toolbar);
-
 
         imgback.setOnClickListener(this);
         imgPower.setOnClickListener(this);
@@ -155,11 +125,9 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         head3.setOnClickListener(this);
         head4.setOnClickListener(this);
         tvmaps.setOnClickListener(this);
-
     }
 
     private void shipmentDetailsView() {
-
         separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
         separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
         separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
@@ -187,26 +155,18 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
         eta.setText(shipmentInfoDetailsDao.getETADateTime());
         deliverydate.setText(shipmentInfoDetailsDao.getPODDateTime());
         currentstatus.setText(shipmentInfoDetailsDao.getStatus());
-
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()){
             case R.id.tvShipmentInfo:
-
                 if(shipmentData!=null) {
                     shipmentDetailsView();
                 }
-
-
                 break;
-
             case R.id.tvShipperInfo:
-
                 if(shipmentData!=null) {
-
                     separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
                     separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
                     separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
@@ -236,15 +196,10 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                     state.setText(shipperInfoDetailsDao.getShipperState());
                     zip.setText(shipperInfoDetailsDao.getShipperZipCode());
                     country.setText(shipperInfoDetailsDao.getShipperCountry());
-
                 }
-
                 break;
-
             case R.id.tvConsigneeInfo:
-
                 if(shipmentData!=null) {
-
                     separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
                     separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
                     separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow));
@@ -266,7 +221,6 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                     lineContent.setVisibility(View.GONE);
 
                     ConsigneeInfoDetailsDao consigneeInfoDetailsDao = shipmentData.getConsigneeInfoDetailsDaoList().get(0);
-
                     consigncontactname.setText(consigneeInfoDetailsDao.getConsigneeContactName());
                     consigncompanyname.setText(consigneeInfoDetailsDao.getConsigneeCompanyName());
                     consignaddress.setText(consigneeInfoDetailsDao.getConsigneeAddress1());
@@ -276,13 +230,9 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                     consigncountry.setText(consigneeInfoDetailsDao.getConsigneeCountry());
 
                 }
-
                 break;
-
             case R.id.tvLineInfo:
-
                 if(shipmentData!=null) {
-
                     separator1.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
                     separator2.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
                     separator3.setBackgroundColor(ContextCompat.getColor(this, R.color.cerulean));
@@ -307,19 +257,12 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                     recyclerView.setAdapter(lineAdapter);
                     recyclerView.addItemDecoration(new DividerItemDecoration(ShipmentDetails.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setHasFixedSize(true);
-
                 }
-
                 break;
-
             case R.id.imgBack:
-
                 finish();
-
                 break;
-
             case R.id.imgLogout:
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(ShipmentDetails.this);
                 alert.setMessage("Are you sure you want to Logout?");
                 alert.setCancelable(false);
@@ -332,82 +275,29 @@ public class ShipmentDetails extends AppCompatActivity implements View.OnClickLi
                         startActivity(intent);
                     }
                 });
-
                 alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-
                 alert.show();
-
-
                 break;
-
-
             case R.id.tvmapsclick:
-
                 trackingViewModel = ViewModelProviders.of(this).get(TrackingViewModel.class);
-
                 trackingViewModel.getTrackingLiveData(WayBillNo).observe(this, new Observer<TrackingDetailsDao>() {
                     @Override
                     public void onChanged(TrackingDetailsDao trackingDetailsDao) {
                         trackingDetailsDaodata = trackingDetailsDao;
                         if(trackingDetailsDaodata!=null){
-
                             int size = trackingDetailsDao.getCoordinatesDaoList().size();
-
-                            String deslatitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLatitude();
-                            String deslangitude = trackingDetailsDao.getCoordinatesDaoList().get(size-1).getLongitude();
-
-                            /*Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?saddr="+trackingDetailsDao.getCurrentLocationLatitude()+","+trackingDetailsDao.getCurrentLocationLongitude()+"&daddr="+deslatitude+","+deslangitude));
-                            context.startActivity(intent);*/
                             Intent i = new Intent(ShipmentDetails.this, MapsActivity.class);
                             i.putExtra("Tracking",trackingDetailsDaodata);
                             startActivity(i);
                         }
                     }
                 });
-
                 break;
-
-
         }
-
     }
-
-   /* private void creatingViews() {
-
-        llScroll.removeAllViews();
-
-        List<LineItemsDao> lineItemsDaoList = shipmentData.getLineItemsDaoList();
-
-        for (int i=0;i<lineItemsDaoList.size();i++){
-
-            LineItemsDao lineItemsDao = lineItemsDaoList.get(i);
-
-            View vv = inflater.inflate(R.layout.linecard,null);
-
-            AppCompatTextView piece = vv.findViewById(R.id.tvPieces);
-            AppCompatTextView description = vv.findViewById(R.id.tvDescription);
-            AppCompatTextView weight = vv.findViewById(R.id.tvWeight);
-
-            piece.setText(lineItemsDao.getPieces());
-            description.setText(lineItemsDao.getDescription());
-            weight.setText(lineItemsDao.getWeight());
-
-            Log.v("Pieces","Pieces---"+piece.getText().toString());
-
-            if (i % 2 == 0) {
-                llScroll.addView(vv, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                llScroll.setBackgroundResource( R.color.red);
-            }else {
-                llScroll.addView(vv, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                llScroll.setBackgroundResource( R.color.white);
-            }
-
-        }
-
-    }*/
 }

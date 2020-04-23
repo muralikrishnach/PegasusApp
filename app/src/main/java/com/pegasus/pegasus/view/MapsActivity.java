@@ -1,14 +1,27 @@
 package com.pegasus.pegasus.view;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,6 +29,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.pegasus.pegasus.R;
@@ -31,36 +46,68 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static GoogleMap mMap;
     static TrackingDetailsDao trackingDetailsDao;
 
     private AppCompatImageButton imgPower;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getIntent().getExtras() != null) {
             trackingDetailsDao = (TrackingDetailsDao) getIntent().getExtras().getSerializable("Tracking");
         }
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        imgPower = findViewById(R.id.imgLogout);
-        findViewById(R.id.imgBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        findViewById(R.id.imgLogout).setOnClickListener(this);
+        findViewById(R.id.imgBack).setOnClickListener(this);
         Objects.requireNonNull(mapFragment).getMapAsync(this);
 
         // Getting URL to the Google Directions API
-        String url = MapsHelper.GetDirectionsUrl(trackingDetailsDao.getCoordinatesDaoList());
+        String mapsKey = getResources().getString(R.string.google_maps_key);
+        String url = MapsHelper.GetDirectionsUrl(trackingDetailsDao.getCoordinatesDaoList(), mapsKey);
         DownloadTask downloadTask = new DownloadTask();
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgBack:
+                finish();
+                break;
+            case R.id.imgLogout:
+                AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this);
+                alert.setMessage("Are you sure you want to Logout?");
+                alert.setCancelable(false);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+
+
+                break;
+        }
     }
 
     @Override
@@ -140,21 +187,87 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Drawing polyline in the Google Map for the i-th route
             mMap.addPolyline(lineOptions);
 
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            Marker mMarker;
+
+            int currentIndex = 0;
+            int lastIndex = trackingDetailsDao.getCoordinatesDaoList().size() - 1;
             for (CoordinatesDao coordinate : trackingDetailsDao.getCoordinatesDaoList()) {
-                AddMarker(coordinate.getLatitude(), coordinate.getLongitude(), coordinate.getIconColor());
+                if (currentIndex == 0 || currentIndex == lastIndex) {
+                    mMarker = AddMarker(coordinate.getLatitude(), coordinate.getLongitude(), coordinate.getIconColor());
+                } else {
+                    mMarker = AddDot(coordinate.getLatitude(), coordinate.getLongitude(), coordinate.getIconColor());
+                }
+                builder.include(mMarker.getPosition());
+                currentIndex++;
             }
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(
+            mMarker = AddMarker(trackingDetailsDao.getCurrentLocationLatitude(),
+                    trackingDetailsDao.getCurrentLocationLongitude(),
+                    trackingDetailsDao.getCurrentLocationColor());
+            builder.include(mMarker.getPosition());
+
+            /**initialize the padding for map boundary*/
+            int padding = 150;
+            /**create the bounds from latlngBuilder to set into map camera*/
+            LatLngBounds bounds = builder.build();
+            /**create the camera with bounds and padding to set into map*/
+            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            /**call the map call back to know map is loaded or not*/
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    /**set animated zoom camera into map*/
+                    mMap.animateCamera(cu);
+
+                }
+            });
+            /*mMap.moveCamera(CameraUpdateFactory.newLatLng(
                     new LatLng(Double.parseDouble(trackingDetailsDao.getCurrentLocationLatitude()),
-                            Double.parseDouble(trackingDetailsDao.getCurrentLocationLongitude()))));
+                            Double.parseDouble(trackingDetailsDao.getCurrentLocationLongitude()))));*/
         }
     }
 
-    public static void AddMarker(String latitude, String longitude, String iconColor) {
-        mMap.addMarker(new MarkerOptions()
+    public static Marker AddMarker(String latitude, String longitude, String iconColor) {
+        return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude)))
                 .rotation((float) 3.5)
                 .icon(GetMarkerIcon(iconColor)));
     }
+
+    public static Marker AddDot(String latitude, String longitude, String iconColor) {
+        return mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude)))
+                .rotation((float) 3.5)
+                .icon(vectorByColor(iconColor)));
+    }
+
+    private static BitmapDescriptor vectorByColor(String color) {
+        switch (color) {
+            case "blue":
+                return vectorToBitmap(R.drawable.map_marker_blue, ContextCompat.getColor(context, R.color.darkblue));
+            case "red":
+                return vectorToBitmap(R.drawable.map_marker_red, ContextCompat.getColor(context, R.color.red));
+            case "green":
+                return vectorToBitmap(R.drawable.map_marker_green, ContextCompat.getColor(context, R.color.green));
+            case "yellow":
+                return vectorToBitmap(R.drawable.map_marker_yellow, ContextCompat.getColor(context, R.color.yellow));
+            default:
+                return vectorToBitmap(R.drawable.map_marker_red, ContextCompat.getColor(context, R.color.red));
+        }
+    }
+
+    private static BitmapDescriptor vectorToBitmap(@DrawableRes int id, @ColorInt int color) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(context.getResources(), id, null);
+        assert vectorDrawable != null;
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        DrawableCompat.setTint(vectorDrawable, color);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
 
     // method definition
     public static BitmapDescriptor GetMarkerIcon(String color) {
